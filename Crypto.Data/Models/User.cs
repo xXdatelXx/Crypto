@@ -1,0 +1,15 @@
+﻿using Crypto.Data.Interface;
+using System.ComponentModel.DataAnnotations;
+
+namespace Crypto.Data.Models;
+
+public class User : IRemovable
+{
+    [Key] public Guid Id { get; set; }
+    public string TelegramId { get; set; }
+    public string ByBitApiKey { get; set; }
+    public string ByBitApiSicret { get; set; }
+    public virtual ICollection<Currency> Currencies { get; set; }
+    public Guid? UserCurrencyId { get; set; } = Guid.Empty;
+    public bool Removed { get; set; }
+}
