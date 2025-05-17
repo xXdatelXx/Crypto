@@ -4,7 +4,6 @@ using Crypto.Data;
 using Crypto.Data.Interface;
 using Crypto.Data.Repository;
 using Microsoft.EntityFrameworkCore;
-using System.Reflection;
 
 var builder = WebApplication.CreateBuilder(args);
 
