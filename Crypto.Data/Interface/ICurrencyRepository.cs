@@ -9,8 +9,9 @@ namespace Crypto.Data.Interface;
 
 public interface ICurrencyRepository
 {
-   Task Create(Currency model, CancellationToken token);
-   Task<Currency?> Get(Guid id, CancellationToken token);
-   Task Update(Currency model, CancellationToken token);
-   Task<bool> CheckDoubling(Currency model, CancellationToken token);
+   Task CreateAsync(Currency model, CancellationToken token);
+   Task<Currency?> GetAsync(Guid id, CancellationToken token);
+   Task UpdateAsync(Currency model, CancellationToken token);
+   Task<bool> CheckDoublingAsync(Currency model, CancellationToken token);
+   Task DeleteAsync(Currency model, CancellationToken token);
 }

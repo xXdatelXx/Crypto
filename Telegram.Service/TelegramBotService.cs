@@ -43,9 +43,9 @@ public class TelegramBotService : BackgroundService
         var command = text.Split(' ')[0];
         var arguments = text.Split(' ').Skip(1).ToArray();
 
-                await botClient.SendMessage(chatId, "Welcome to CryptoBot!", cancellationToken: cancellationToken);
         switch (command) {
             case "/start":
+                await botClient.SendMessage(chatId, "Welcome to CryptoBot!", cancellationToken: cancellationToken);
                 break;
             case "/price": {
                 using var scope = _serviceProvider.CreateScope();

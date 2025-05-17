@@ -35,7 +35,7 @@ public class UserRepository : IUserRepository
         await _dbContext.SaveChangesAsync(token);
     }
         
-    public async Task<bool> CheckDoubling(User model, CancellationToken token) {
+    public async Task<bool> CheckDoublingAsync(User model, CancellationToken token) {
         return await Task.FromResult(_set.FirstOrDefault(e => 
             e.Id != model.Id &&  e.TelegramId == model.TelegramId &&  
             e.ByBitApiKey == model.ByBitApiKey /*&&*/

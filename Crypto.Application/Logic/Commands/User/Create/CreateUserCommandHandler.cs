@@ -16,7 +16,7 @@ namespace Crypto.Application.Logic.Commands
                 ByBitApiSicret = request.bybitSicret
             };
 
-            if (await repository.CheckDoubling(user, cancellationToken) == false)
+            if (await repository.CheckDoublingAsync(user, cancellationToken) == false)
                 await repository.Create(user, cancellationToken);
 
             return new UserDTO()
