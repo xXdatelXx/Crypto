@@ -9,7 +9,7 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Crypto.Data", "Crypto.Data\
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Crypto.Application", "Crypto.Application\Crypto.Application.csproj", "{8C927E66-4F16-49C9-9F70-70E92ADE0606}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Telegram.Service", "Telegram.Service\Telegram.Service.csproj", "{6A9218C5-1E4F-4BD8-955C-9C6B38C8A1AF}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Crypto.Telegram", "..\New folder\Crypto\Crypto.Telegram\Crypto.Telegram.csproj", "{A523E8E0-154F-49D7-AF5D-9089EE5D1457}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -29,10 +29,10 @@ Global
 		{8C927E66-4F16-49C9-9F70-70E92ADE0606}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{8C927E66-4F16-49C9-9F70-70E92ADE0606}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{8C927E66-4F16-49C9-9F70-70E92ADE0606}.Release|Any CPU.Build.0 = Release|Any CPU
-		{6A9218C5-1E4F-4BD8-955C-9C6B38C8A1AF}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{6A9218C5-1E4F-4BD8-955C-9C6B38C8A1AF}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{6A9218C5-1E4F-4BD8-955C-9C6B38C8A1AF}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{6A9218C5-1E4F-4BD8-955C-9C6B38C8A1AF}.Release|Any CPU.Build.0 = Release|Any CPU
+		{A523E8E0-154F-49D7-AF5D-9089EE5D1457}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{A523E8E0-154F-49D7-AF5D-9089EE5D1457}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{A523E8E0-154F-49D7-AF5D-9089EE5D1457}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{A523E8E0-154F-49D7-AF5D-9089EE5D1457}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

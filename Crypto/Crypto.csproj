@@ -8,6 +8,13 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <Compile Remove="Crypto.Telegram\**" />
+    <Content Remove="Crypto.Telegram\**" />
+    <EmbeddedResource Remove="Crypto.Telegram\**" />
+    <None Remove="Crypto.Telegram\**" />
+  </ItemGroup>
+
+  <ItemGroup>
     <PackageReference Include="MediatR" Version="12.5.0" />
     <PackageReference Include="Microsoft.EntityFrameworkCore.Design" Version="9.0.4">
       <PrivateAssets>all</PrivateAssets>
@@ -22,6 +29,7 @@
   </ItemGroup>
 
   <ItemGroup>
+    <ProjectReference Include="..\..\New folder\Crypto\Crypto.Telegram\Crypto.Telegram.csproj" />
     <ProjectReference Include="..\Crypto.Application\Crypto.Application.csproj" />
     <ProjectReference Include="..\Crypto.Data\Crypto.Data.csproj" />
   </ItemGroup>

@@ -3,6 +3,7 @@ using Crypto.Application.Logic.Queries.Price;
 using Crypto.Data;
 using Crypto.Data.Interface;
 using Crypto.Data.Repository;
+using Crypto;
 using Microsoft.EntityFrameworkCore;
 
 var builder = WebApplication.CreateBuilder(args);
@@ -21,6 +22,10 @@ builder.Services.AddMediatR(cfg =>
 
 builder.Services.AddScoped<ICurrencyRepository, CurrencyRepository>();
 builder.Services.AddScoped<IUserRepository, UserRepository>();
+
+builder.Services.AddHttpClient<ICryptoApiClient, CryptoApiClient>();
+builder.Services.AddSingleton<Telegram.Bot>();
+builder.Services.AddHostedService<BotService>();
 
 var app = builder.Build();
 
