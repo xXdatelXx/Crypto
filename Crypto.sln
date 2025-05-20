@@ -8,7 +8,7 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Crypto.Application", "Crypt
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Crypto.Data", "Crypto.Data\Crypto.Data.csproj", "{14851D29-943B-7528-262E-4770393BCA0C}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Crypto.Telegram", "..\New folder\Crypto\Crypto.Telegram\Crypto.Telegram.csproj", "{9A987364-3E7C-4BF2-A849-C74355FA436E}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Crypto.Telegram", "Crypto.Telegram\Crypto.Telegram.csproj", "{9A987364-3E7C-4BF2-A849-C74355FA436E}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
