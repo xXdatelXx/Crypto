@@ -1,17 +1,32 @@
-﻿using Crypto.Application.Logic.Queries.Price;
+﻿using System.Security.Cryptography;
+using System.Text;
 using Crypto.Application.Model;
+using Crypto.Data;
+using Crypto.Data.Interface;
+using Crypto.Queris.Model;
 using MediatR;
+using Microsoft.EntityFrameworkCore;
 using Newtonsoft.Json.Linq;
 
 namespace Crypto.Application.Logic.Queries.Wallet;
 
-public class GetWalletQueryHandler  : IRequestHandler<GetWalletQuery, WalletDTO>
+public class GetWalletQueryHandler(CryptoDBContext dBContext)  : IRequestHandler<GetWalletQuery, WalletModel>
 {
-   public async Task<WalletDTO> Handle(GetWalletQuery request, CancellationToken cancellationToken)
+   public async Task<WalletModel> Handle(GetWalletQuery request, CancellationToken cancellationToken)
    {
-      return default;
-      /*string apiKey = "HoV2kLSvzfFWpPXEyk";
-      string apiSecret = "VBSAhnECjvLN5YAM84YCVd3xHISRHZDmzRPV";
+      var user = await dBContext.Users.Where(x => x.TelegramId == request.telegramId).Select(u => new UserModel()
+      {
+          ByBitApiKey = u.ByBitApiKey,
+          ByBitApiSicret = u.ByBitApiSicret
+      }).FirstOrDefaultAsync(cancellationToken);
+      if(user == null)
+      {
+          return null;
+      }
+
+      string apiKey = user.ByBitApiKey;
+      string apiSecret = user.ByBitApiSicret;
+
       string recvWindow = "5000";
       string query = "accountType=UNIFIED";
       string timestamp = DateTimeOffset.UtcNow.ToUnixTimeMilliseconds().ToString();
@@ -31,26 +46,23 @@ public class GetWalletQueryHandler  : IRequestHandler<GetWalletQuery, WalletDTO>
 
       JToken? coins = JObject.Parse(response)["result"]?["list"]?[0]?["coin"];
 
-      var balances = coins
-         .Where(c => decimal.TryParse(c["walletBalance"]?.ToString(), out decimal b) && b > 0)
-         .Select(c => new {
-            Currency = c["coin"]?.ToString(),
-            Balance = c["walletBalance"]?.ToString(),
-            USDValue = decimal.TryParse(c["usdValue"]?.ToString(), out decimal usd) ? Math.Round(usd, 2) : 0
-         })
+        var balances = coins
+           .Where(c => decimal.TryParse(c["walletBalance"]?.ToString(), out decimal b) && b > 0)
+           .Select(c =>(
+              c["coin"]?.ToString(),
+              float.Parse(c["walletBalance"]?.ToString())
+           ))
          .ToList();
 
-      decimal total = balances.Sum(x => x.USDValue);
-
-      return Ok(new {
-         Wallet = balances,
-         TotalUSD = Math.Round(total, 2)
-      });
+        return new WalletModel
+        {
+            Assets = balances
+        };
 
       static string Sign(string message, string secret) {
          using HMACSHA256 hmac = new(Encoding.UTF8.GetBytes(secret));
          byte[] hash = hmac.ComputeHash(Encoding.UTF8.GetBytes(message));
          return BitConverter.ToString(hash).Replace("-", "").ToLower();
-      }*/
+      }
    }
 }

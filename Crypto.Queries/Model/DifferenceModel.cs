@@ -1,6 +1,6 @@
-﻿namespace Crypto.Application.Model;
+﻿namespace Crypto.Queris.Model;
 
-public class DifferenceDto
+public class DifferenceModel
 {
     public string Symbol { get; set; }
     public DateTime Time { get; set; }

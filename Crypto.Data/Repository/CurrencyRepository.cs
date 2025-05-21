@@ -47,4 +47,9 @@ public class CurrencyRepository : ICurrencyRepository {
         model.Removed = true;
         await UpdateAsync(model, token);
     }
+
+    public async Task<Currency?> GetByNameAsync(string name, CancellationToken token)
+    {
+        return await _set.FirstOrDefaultAsync(x => x.Name == name, token);
+    }
 }

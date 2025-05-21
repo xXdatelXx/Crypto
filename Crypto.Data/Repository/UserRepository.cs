@@ -1,6 +1,7 @@
 ﻿using Crypto.Data.Models;
 using Microsoft.EntityFrameworkCore;
 using Crypto.Data.Interface;
+using System.Xml.Linq;
 
 namespace Crypto.Data.Repository;
 
@@ -22,6 +23,14 @@ public class UserRepository : IUserRepository
 
     public async Task<User?> GetAsync(Guid id, CancellationToken token) => 
         await _set.FindAsync(id, token) ?? null;
+
+    public async Task<User?> GetByTGIdAsync(string id, CancellationToken token) {
+        return await _set.FirstOrDefaultAsync(x => x.TelegramId == id, token);
+    }
+    
+    public Task<IEnumerable<User>?> GetAll(CancellationToken token) {
+        throw new NotImplementedException();
+    }
 
     public async Task UpdateAsync(User model, CancellationToken token) {
         var old = await GetAsync(model.Id, token);

@@ -1,3 +1,4 @@
+using Crypto.Application.Logic.Commands;
 using Crypto.Application.Logic.Queries.GreedFear;
 using Crypto.Application.Logic.Queries.Price;
 using Crypto.Data;
@@ -20,6 +21,7 @@ builder.Services.AddMediatR(cfg =>
 {
     cfg.RegisterServicesFromAssembly(typeof(GetPriceQueryHandler).Assembly);
     cfg.RegisterServicesFromAssembly(typeof(GreedFearQueryHandler).Assembly);
+    cfg.RegisterServicesFromAssembly(typeof(UpdateUserCommandHandler).Assembly);
 });
 
 builder.Services.AddScoped<ICurrencyRepository, CurrencyRepository>();

@@ -1,6 +1,6 @@
-﻿using Crypto.Application.Logic.Queries.GreedFear;
-using Crypto.Application.Logic.Queries.Price;
+﻿using Crypto.Application.Logic.Queries.Price;
 using Crypto.Application.Model;
+using Crypto.Queris.Model;
 using MediatR;
 using Microsoft.AspNetCore.Mvc;
 
@@ -22,7 +22,7 @@ public class PriceEndPoint(IMediator mediator) : ControllerBase {
         float difference = current - old;
         float percent = difference / old * 100;
 
-        return Ok(new DifferenceDto()
+        return Ok(new DifferenceModel()
         {
             Symbol = currency,
             Time = time,
