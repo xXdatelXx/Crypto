@@ -2,7 +2,6 @@
 using System.Text;
 using Crypto.Application.Model;
 using Crypto.Data;
-using Crypto.Data.Interface;
 using Crypto.Queris.Model;
 using MediatR;
 using Microsoft.EntityFrameworkCore;
@@ -10,19 +9,15 @@ using Newtonsoft.Json.Linq;
 
 namespace Crypto.Application.Logic.Queries.Wallet;
 
-public class GetWalletQueryHandler(CryptoDBContext dBContext)  : IRequestHandler<GetWalletQuery, WalletModel>
-{
-   public async Task<WalletModel> Handle(GetWalletQuery request, CancellationToken cancellationToken)
-   {
-      var user = await dBContext.Users.Where(x => x.TelegramId == request.telegramId).Select(u => new UserModel()
-      {
-          ByBitApiKey = u.ByBitApiKey,
-          ByBitApiSicret = u.ByBitApiSicret
+public class GetWalletQueryHandler(CryptoDBContext dBContext) : IRequestHandler<GetWalletQuery, WalletModel> {
+   public async Task<WalletModel> Handle(GetWalletQuery request, CancellationToken cancellationToken) {
+      var user = await dBContext.Users.Where(x => x.TelegramId == request.telegramId).Select(u => new UserModel {
+         ByBitApiKey = u.ByBitApiKey,
+         ByBitApiSicret = u.ByBitApiSicret
       }).FirstOrDefaultAsync(cancellationToken);
-      if(user == null)
-      {
-          return null;
-      }
+      
+      if (user == null) 
+         return null;
 
       string apiKey = user.ByBitApiKey;
       string apiSecret = user.ByBitApiSicret;
@@ -44,20 +39,19 @@ public class GetWalletQueryHandler(CryptoDBContext dBContext)  : IRequestHandler
       string url = $"https://api.bybit.com/v5/account/wallet-balance?{query}";
       string response = await client.GetStringAsync(url);
 
-      JToken? coins = JObject.Parse(response)["result"]?["list"]?[0]?["coin"];
+      var coins = JObject.Parse(response)["result"]?["list"]?[0]?["coin"];
 
-        var balances = coins
-           .Where(c => decimal.TryParse(c["walletBalance"]?.ToString(), out decimal b) && b > 0)
-           .Select(c =>(
-              c["coin"]?.ToString(),
-              float.Parse(c["walletBalance"]?.ToString())
-           ))
+      var balances = coins
+         .Where(c => decimal.TryParse(c["walletBalance"]?.ToString(), out var b) && b > 0)
+         .Select(c => (
+            c["coin"]?.ToString(),
+            float.Parse(c["walletBalance"]?.ToString())
+         ))
          .ToList();
 
-        return new WalletModel
-        {
-            Assets = balances
-        };
+      return new WalletModel {
+         Assets = balances
+      };
 
       static string Sign(string message, string secret) {
          using HMACSHA256 hmac = new(Encoding.UTF8.GetBytes(secret));

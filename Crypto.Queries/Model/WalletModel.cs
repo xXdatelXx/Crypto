@@ -1,6 +1,4 @@
-﻿using Crypto.Queris.Model;
-
-namespace Crypto.Application.Model;
+﻿namespace Crypto.Application.Model;
 
 public class WalletModel {
    public List<(string, float)> Assets { get; set; }

@@ -16,12 +16,11 @@ builder.Services.AddSwaggerGen();
 builder.Services.AddHttpClient();
 
 builder.Services.AddDbContext<CryptoDBContext>(options =>
-    options.UseNpgsql("Host=localhost;Database=CryptoDb;Username=postgres;Password=1"));
-builder.Services.AddMediatR(cfg =>
-{
-    cfg.RegisterServicesFromAssembly(typeof(GetPriceQueryHandler).Assembly);
-    cfg.RegisterServicesFromAssembly(typeof(GreedFearQueryHandler).Assembly);
-    cfg.RegisterServicesFromAssembly(typeof(UpdateUserCommandHandler).Assembly);
+   options.UseNpgsql("Host=localhost;Database=CryptoDb;Username=postgres;Password=1"));
+builder.Services.AddMediatR(cfg => {
+   cfg.RegisterServicesFromAssembly(typeof(GetPriceQueryHandler).Assembly);
+   cfg.RegisterServicesFromAssembly(typeof(GreedFearQueryHandler).Assembly);
+   cfg.RegisterServicesFromAssembly(typeof(UpdateUserCommandHandler).Assembly);
 });
 
 builder.Services.AddScoped<ICurrencyRepository, CurrencyRepository>();
@@ -32,10 +31,9 @@ builder.Services.AddHostedService<Bot>();
 
 var app = builder.Build();
 
-if (app.Environment.IsDevelopment())
-{
-    app.UseSwagger();
-    app.UseSwaggerUI();
+if (app.Environment.IsDevelopment()) {
+   app.UseSwagger();
+   app.UseSwaggerUI();
 }
 
 app.UseHttpsRedirection();

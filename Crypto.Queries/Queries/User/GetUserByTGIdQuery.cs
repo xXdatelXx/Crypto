@@ -1,5 +1,4 @@
-﻿using Crypto.Application.Model;
-using Crypto.Queris.Model;
+﻿using Crypto.Queris.Model;
 using MediatR;
 
 namespace Crypto.Application.Logic.Queries;

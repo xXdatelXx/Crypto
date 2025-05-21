@@ -4,11 +4,10 @@ using Microsoft.AspNetCore.Mvc;
 
 namespace Crypto.EndPoints;
 
-[Route("api/[controller]")]
-[ApiController]
-public class GreedFearIndex(IMediator mediator) : ControllerBase
-{
+[Route("api/[controller]"), ApiController]
+public class GreedFearIndex(IMediator mediator) : ControllerBase {
    [HttpGet, Route("GetGreedFearIndex")]
-   public async Task<IActionResult> GetIndex() =>
-      Ok(await mediator.Send(new GreedFearQuery()));
+   public async Task<IActionResult> GetIndex() {
+      return Ok(await mediator.Send(new GreedFearQuery()));
+   }
 }

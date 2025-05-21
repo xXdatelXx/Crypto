@@ -1,6 +1,4 @@
-﻿using Crypto.Application.Logic.Commands;
-
-namespace Crypto.Application.Model;
+﻿namespace Crypto.Application.Model;
 
 public class WalletDTO {
    public List<(string, float)> Assets { get; set; }
