@@ -19,13 +19,13 @@ public class UserCRUD(IMediator mediator) : ControllerBase {
    }*/
 
    [HttpPost, Route("UpdateUser")]
-   public async Task<IActionResult> UpdateUser(Guid id, string telegramId, string bybitKey, string bybitSicret,
+   public async Task<IActionResult> UpdateUser(/*Guid id, string telegramId, string bybitKey, string bybitSicret,*/
       IEnumerable<string> currencies, CancellationToken token = default) {
       UserDTO user = new() {
-         Id = id,
-         TelegramId = telegramId,
-         ByBitApiKey = bybitKey,
-         ByBitApiSicret = bybitSicret,
+         Id = new Guid("0196f319-fec4-7a0f-8dca-cef7e71773ef"),//id,
+         TelegramId = "50",//telegramId,
+         ByBitApiKey = "50",//bybitKey,
+         ByBitApiSicret = "50",//bybitSicret,
          Currencies = currencies
       };
 

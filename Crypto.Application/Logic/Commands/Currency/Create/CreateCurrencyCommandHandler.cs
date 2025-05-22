@@ -1,5 +1,6 @@
 ﻿using Crypto.Data.Interface;
 using Crypto.Data.Models;
+using FluentValidation;
 using MediatR;
 
 namespace Crypto.Application.Logic.Commands;
@@ -7,6 +8,9 @@ namespace Crypto.Application.Logic.Commands;
 public class CreateCurrencyCommandHandler(ICurrencyRepository repository)
    : IRequestHandler<CreateCurrencyCommand, CurrencyDTO> {
    public async Task<CurrencyDTO> Handle(CreateCurrencyCommand request, CancellationToken cancellationToken) {
+      var validator = new CreateCurrencyCommandValidator();
+       validator.Validate(request);
+      
       Currency currency = new() {
          Name = request.Name
       };

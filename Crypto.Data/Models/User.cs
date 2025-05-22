@@ -9,6 +9,5 @@ public class User : IRemovable {
    public string ByBitApiKey { get; set; }
    public string ByBitApiSicret { get; set; }
    public virtual ICollection<Currency> Currencies { get; set; }
-   public Guid? UserCurrencyId { get; set; } = Guid.Empty;
    public bool Removed { get; set; }
 }

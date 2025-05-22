@@ -17,6 +17,7 @@ builder.Services.AddHttpClient();
 
 builder.Services.AddDbContext<CryptoDBContext>(options =>
    options.UseNpgsql("Host=localhost;Database=CryptoDb;Username=postgres;Password=1"));
+
 builder.Services.AddMediatR(cfg => {
    cfg.RegisterServicesFromAssembly(typeof(GetPriceQueryHandler).Assembly);
    cfg.RegisterServicesFromAssembly(typeof(GreedFearQueryHandler).Assembly);

@@ -34,8 +34,6 @@ public class Bot(ITelegramBotClient client, IHttpClientFactory httpClientFactory
          .HandleResponseAsync(update.Message.Text, token);
 
       await client.SendMessage(update.Message.Chat.Id, response, cancellationToken: token);
-
-      // AddCurrency RemoveCurrency Wallet
    }
 
    private Task HandleErrorAsync(ITelegramBotClient client, Exception exception, CancellationToken token) {
