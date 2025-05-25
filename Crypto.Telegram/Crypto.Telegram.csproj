@@ -14,6 +14,7 @@
 
     <ItemGroup>
         <ProjectReference Include="..\Crypto.Application\Crypto.Application.csproj"/>
+        <ProjectReference Include="..\Crypto.Queries\Crypto.Queries.csproj" />
     </ItemGroup>
 
 </Project>
