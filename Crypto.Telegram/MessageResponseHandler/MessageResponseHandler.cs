@@ -1,13 +1,16 @@
-﻿namespace Crypto.Telegram;
+﻿using Telegram.Bot.Types;
+
+namespace Crypto.Telegram;
 
 public sealed class MessageResponseHandler(params IMessageResponse[] handlers) : IMessageResponse {
-   public async Task<string?> HandleResponseAsync(string message, CancellationToken token) {
+   public async Task<string?> HandleResponseAsync(Update update, CancellationToken token) {
       string results = "";
-      
-      foreach (var result in (handlers.Select(async h => await h.HandleResponseAsync(message, token)))) {
-         if (result.Result != null) 
-            results += result.Result + "\n";
+
+      foreach (var h in handlers) {
+         var result = await h.HandleResponseAsync(update, token);
+         if (result != null) results += result + "\n";
       }
+
       return results;
    }
 }

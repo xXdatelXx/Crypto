@@ -1,5 +1,7 @@
-﻿namespace Crypto.Telegram;
+﻿using Telegram.Bot.Types;
+
+namespace Crypto.Telegram;
 
 public interface IMessageResponse {
-   Task<string?> HandleResponseAsync(string message, CancellationToken token);
+   Task<string?> HandleResponseAsync(Update update, CancellationToken token);
 }

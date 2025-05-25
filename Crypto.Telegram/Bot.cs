@@ -22,7 +22,6 @@ public class Bot(ITelegramBotClient client, IHttpClientFactory httpClientFactory
    private async Task HandleUpdateAsync(ITelegramBotClient client, Update update, CancellationToken token) {
       if (update.Message?.Text == null)
          return;
-     
       var http = httpClientFactory.CreateClient();
       //http.BaseAddress = new Uri("https://localhost:5015/");
       http.BaseAddress = new Uri("https://localhost:44396/");
@@ -32,8 +31,9 @@ public class Bot(ITelegramBotClient client, IHttpClientFactory httpClientFactory
             new LoginResponse(http),
             new PriceResponse(http),
             new GreedFearResponse(http),
-            new DifferenceResponse(http))
-         .HandleResponseAsync(update.Message.Text, token);
+            new DifferenceResponse(http),
+            new WalletResponse(http))
+         .HandleResponseAsync(update, token);
 
       await client.SendMessage(update.Message.Chat.Id, response, cancellationToken: token);
    }

@@ -1,9 +1,11 @@
 using System.Net.Http.Json;
+using Telegram.Bot.Types;
 
 namespace Crypto.Telegram.Realisations;
 
 public sealed class PriceResponse(HttpClient http) : IMessageResponse {
-   public async Task<string?> HandleResponseAsync(string message, CancellationToken token) {
+   public async Task<string?> HandleResponseAsync(Update update, CancellationToken token) {
+      string message = update.Message.Text;
       string command = message.Split(' ')[0];
       
       if(command != "/price")

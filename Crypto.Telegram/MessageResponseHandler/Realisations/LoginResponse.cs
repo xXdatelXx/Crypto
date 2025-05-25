@@ -1,10 +1,10 @@
-using System.Net.Http.Json;
-using Crypto.Application.Model;
+using Telegram.Bot.Types;
 
 namespace Crypto.Telegram.Realisations;
 
 public sealed class LoginResponse(HttpClient http) : IMessageResponse {
-   public async Task<string?> HandleResponseAsync(string message, CancellationToken token) {
+   public async Task<string?> HandleResponseAsync(Update update, CancellationToken token) {
+      string message = update.Message.Text;
       var command = message.Split(' ')[0];
 
       if (command != "/login")
@@ -12,30 +12,21 @@ public sealed class LoginResponse(HttpClient http) : IMessageResponse {
 
       var arguments = message.Split(' ').Skip(1).ToArray();
 
-      if (arguments.Length != 3)
-         return "Invalid command format. Use: /login <ByBitKey> <ByBitSecret> <TelegramID>";
+      if (arguments.Length != 2)
+         return "Invalid command format. Use: /login <ByBitKey> <ByBitSecret>";
 
       string byBitKey = arguments[0];
       string byBitSecret = arguments[1];
-      string telegramId = arguments[2];
+      string telegramId = update.Message.From.Id.ToString();
       
-      var formData = new FormUrlEncodedContent(new[]
-      {
-         new KeyValuePair<string, string>("telegramId", telegramId),
-         new KeyValuePair<string, string>("bybitKey", byBitKey),
-         new KeyValuePair<string, string>("bybitSicret", byBitSecret) // typo kept to match your param name
-      });
+      var baseUrl = "api/UserCRUD/CreateUser";
+      var url = $"{baseUrl}?telegramId={telegramId}&bybitKey={byBitKey}&bybitSicret={byBitSecret}";
 
+      var response = await http.PostAsync(url, null, token);
+            response.EnsureSuccessStatusCode();
       
-      var response = await http.PostAsync($"api/UserCRUD/CreateUser", formData, token);
-      
-      if (!response.IsSuccessStatusCode)
-         return "Failed to create user. Please try again. 2";
-
-      var result = await response.Content.ReadFromJsonAsync<UserDTO>(cancellationToken: token);
-
-      return result != null
-         ? "User successfully created and logged in!"
-         : "Failed to create user. Please try again.";
+      return response.IsSuccessStatusCode 
+         ? "User created successfully: " 
+         : "Failed to create user. Please check your input and try again.";
    }
 }
