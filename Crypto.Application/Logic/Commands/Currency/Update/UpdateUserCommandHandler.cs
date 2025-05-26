@@ -8,10 +8,9 @@ public class UpdateCurrencyCommandHandler(ICurrencyRepository currencyRepository
    public async Task<CurrencyDTO> Handle(UpdateCurrencyCommand request, CancellationToken cancellationToken) {
       Currency old = await currencyRepository.GetAsync(request.currency.Id, cancellationToken);
 
-      old.Id = request.currency.Id;
       old.Name = request.currency.Name;
 
-      List<User> users = new();
+      List<User> users = [];
       if (request.currency.Users is not null) {
          request.currency.Users?.ToList().ForEach(async c => {
             var u = await userRepository.GetByTGIdAsync(c, cancellationToken);

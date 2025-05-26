@@ -19,11 +19,13 @@ public sealed class LoginResponse(HttpClient http) : IMessageResponse {
       string byBitSecret = arguments[1];
       string telegramId = update.Message.From.Id.ToString();
       
-      var baseUrl = "api/UserCRUD/CreateUser";
-      var url = $"{baseUrl}?telegramId={telegramId}&bybitKey={byBitKey}&bybitSicret={byBitSecret}";
+      var url = $"api/UserCRUD/CreateUser?" +
+                $"telegramId={telegramId}" +
+                $"&bybitKey={byBitKey}" +
+                $"&bybitSicret={byBitSecret}";
 
       var response = await http.PostAsync(url, null, token);
-            response.EnsureSuccessStatusCode();
+      response.EnsureSuccessStatusCode();
       
       return response.IsSuccessStatusCode 
          ? "User created successfully: " 

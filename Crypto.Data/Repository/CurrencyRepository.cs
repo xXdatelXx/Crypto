@@ -21,7 +21,7 @@ public class CurrencyRepository : ICurrencyRepository {
    }
 
    public async Task UpdateAsync(Currency model, CancellationToken token) {
-      var old = await _dbContext.Currencies.FindAsync(new object[] { model.Id }, token);
+      var old = await _dbContext.Currencies.FindAsync([model.Id], token);
 
       if (old == null)
          throw new Exception("Currency not found");
