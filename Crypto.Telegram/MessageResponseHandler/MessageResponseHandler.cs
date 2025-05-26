@@ -7,8 +7,13 @@ public sealed class MessageResponseHandler(params IMessageResponse[] handlers) :
       string results = "";
 
       foreach (var h in handlers) {
-         var result = await h.HandleResponseAsync(update, token);
-         if (result != null) results += result + "\n";
+         try {
+            var result = await h.HandleResponseAsync(update, token);
+            if (result != null) results += result + "\n";
+         }
+         catch (Exception e) {
+            return $"An error occurred while processing the command: {e.Message}";
+         }
       }
 
       return results;

@@ -8,7 +8,7 @@ public sealed class StartResponse : IMessageResponse {
       
       return await Task.FromResult<string?>(
          message == "/start"
-            ? "Welcome to CryptoBot! Use /login to connect your account."
+            ? "Welcome to CryptoBot. Use /login to connect your account."
             : string.Empty
       );
    }
