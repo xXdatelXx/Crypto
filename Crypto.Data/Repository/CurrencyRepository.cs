@@ -25,10 +25,9 @@ public sealed class CurrencyRepository(CryptoDBContext dbContext) : ICurrencyRep
    }
 
    public async Task<bool> CheckDoublingAsync(Currency model, CancellationToken token) {
-      return await dbContext.Currencies.FirstOrDefaultAsync(e =>
+      return await dbContext.Set<Currency>().FirstOrDefaultAsync(e =>
          e.Id != model.Id &&
-         e.Name == model.Name &&
-         e.Users.Distinct().Count() == model.Users.Distinct().Count(), token) == null;
+         e.Name == model.Name, token) != null;
    }
 
    public async Task DeleteAsync(Currency model, CancellationToken token) {

@@ -17,16 +17,14 @@ public sealed class UpdateCurrencyCommandHandler(ICurrencyRepository currencyRep
       old.Name = request.currency.Name;
 
       List<User> users = [];
-      if (request.currency.Users is not null) {
-         request.currency.Users?.ToList().ForEach(async c => {
-            var u = await userRepository.GetByTGIdAsync(c, cancellationToken);
-            if (u == null) await currencyRepository.CreateAsync(new Currency { Name = c }, cancellationToken);
-            users.Add(u);
-         });
+      request.currency.Users?.ToList().ForEach(async c => {
+         var u = await userRepository.GetByTGIdAsync(c, cancellationToken);
+         if (u == null) 
+            await currencyRepository.CreateAsync(new Currency { Name = c }, cancellationToken);
+         users.Add(u);
+      });
 
-         old.Users.ToList().AddRange(users);
-      }
-
+      old.Users.ToList().AddRange(users);
 
       await currencyRepository.UpdateAsync(old, cancellationToken);
 

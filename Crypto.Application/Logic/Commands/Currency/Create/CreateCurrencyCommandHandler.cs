@@ -2,6 +2,7 @@
 using Crypto.Data.Models;
 using FluentValidation;
 using MediatR;
+using Microsoft.EntityFrameworkCore;
 
 namespace Crypto.Application.Logic.Commands;
 
@@ -16,8 +17,10 @@ public sealed class CreateCurrencyCommandHandler(ICurrencyRepository repository)
          Name = request.Name
       };
 
-      if (await repository.CheckDoublingAsync(currency, cancellationToken) == false)
-         await repository.CreateAsync(currency, cancellationToken);
+      if (await repository.CheckDoublingAsync(currency, cancellationToken))
+         throw new DbUpdateException("Currency is already exists");
+
+      await repository.CreateAsync(currency, cancellationToken);
 
       return new CurrencyDTO {
          Id = currency.Id,

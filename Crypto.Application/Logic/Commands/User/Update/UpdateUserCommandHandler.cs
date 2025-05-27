@@ -3,6 +3,7 @@ using Crypto.Data.Interface;
 using Crypto.Data.Models;
 using FluentValidation;
 using MediatR;
+using Microsoft.EntityFrameworkCore;
 
 namespace Crypto.Application.Logic.Commands;
 
@@ -32,15 +33,15 @@ public sealed class UpdateUserCommandHandler(IUserRepository userRepository, ICu
                currency.Users = new List<User> { old };
             else
                currency.Users.Add(old);
-            currencyRepository.UpdateAsync(currency, cancellationToken);
+            await currencyRepository.UpdateAsync(currency, cancellationToken);
          }
       }
 
       var toRemove = old.Currencies?.Where(c => !request.user.Currencies.Contains(c.Name)).ToList();
       foreach (var currency in toRemove)
          old.Currencies.Remove(currency);
-
-      userRepository.UpdateAsync(old, cancellationToken);
+      
+      await userRepository.UpdateAsync(old, cancellationToken);
 
       return request.user;
    }

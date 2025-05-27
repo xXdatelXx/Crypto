@@ -3,6 +3,7 @@ using Crypto.Data.Interface;
 using Crypto.Data.Models;
 using FluentValidation;
 using MediatR;
+using Microsoft.EntityFrameworkCore;
 
 namespace Crypto.Application.Logic.Commands;
 
@@ -19,7 +20,9 @@ public sealed class CreateUserCommandHandler(IUserRepository repository) : IRequ
          ByBitApiSicret = request.bybitSicret
       };
 
-      //if (await repository.CheckDoublingAsync(user, cancellationToken) == false)
+      if (await repository.CheckDoublingAsync(user, cancellationToken))
+         throw new DbUpdateException("User is already exists");
+      
       await repository.CreateAsync(user, cancellationToken);
 
       return new UserDTO {
