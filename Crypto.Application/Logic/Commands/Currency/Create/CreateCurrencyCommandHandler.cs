@@ -9,7 +9,9 @@ public class CreateCurrencyCommandHandler(ICurrencyRepository repository)
    : IRequestHandler<CreateCurrencyCommand, CurrencyDTO> {
    public async Task<CurrencyDTO> Handle(CreateCurrencyCommand request, CancellationToken cancellationToken) {
       var validator = new CreateCurrencyCommandValidator();
-       validator.Validate(request);
+      var validationResult = await validator.ValidateAsync(request, cancellationToken);
+      if (!validationResult.IsValid)
+         throw new ValidationException(validationResult.Errors);
       
       Currency currency = new() {
          Name = request.Name

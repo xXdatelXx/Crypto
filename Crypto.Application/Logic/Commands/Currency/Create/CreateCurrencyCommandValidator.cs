@@ -7,7 +7,7 @@ public class CreateCurrencyCommandValidator : AbstractValidator<CreateCurrencyCo
       RuleFor(x => x.Name)
          .NotEmpty()
          .WithMessage("Name is required.")
-         .MaximumLength(5)
-         .WithMessage("Name must not exceed 50 characters.");
+         .MaximumLength(10)
+         .WithMessage("Name must not exceed 10 characters.");
    }
 }

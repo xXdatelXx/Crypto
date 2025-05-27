@@ -1,6 +1,7 @@
 ﻿using Crypto.Application.Model;
 using Crypto.Data.Interface;
 using Crypto.Data.Models;
+using FluentValidation;
 using MediatR;
 
 namespace Crypto.Application.Logic.Commands;
@@ -8,6 +9,11 @@ namespace Crypto.Application.Logic.Commands;
 public class UpdateUserCommandHandler(IUserRepository userRepository, ICurrencyRepository currencyRepository)
    : IRequestHandler<UpdateUserCommand, UserDTO> {
    public async Task<UserDTO> Handle(UpdateUserCommand request, CancellationToken cancellationToken) {
+      var validator = new UpdateUserCommandValidator();
+      var validationResult = await validator.ValidateAsync(request, cancellationToken);
+      if (!validationResult.IsValid)
+         throw new ValidationException(validationResult.Errors);
+      
       var old = await userRepository.GetAsync(request.user.Id, cancellationToken);
 
       old.TelegramId = request.user.TelegramId;
