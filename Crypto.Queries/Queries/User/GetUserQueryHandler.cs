@@ -12,7 +12,8 @@ public sealed class GetUserQueryHandler(IUserRepository repository) : IRequestHa
          Id = user.Id,
          TelegramId = user.TelegramId,
          ByBitApiKey = user.ByBitApiKey,
-         ByBitApiSicret = user.ByBitApiSicret
+         ByBitApiSicret = user.ByBitApiSicret,
+         Currencies = user.Currencies?.Select(c => c.Name).ToList() ?? []
       };
    }
 }

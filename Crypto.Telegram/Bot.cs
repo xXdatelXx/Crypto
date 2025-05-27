@@ -34,7 +34,9 @@ public class Bot(ITelegramBotClient client, IHttpClientFactory httpClientFactory
             new GreedFearResponse(http),
             new DifferenceResponse(http),
             new WalletResponse(http),
-            new UpdateUserResponse(http))
+            new UpdateCredentialsResponse(http),
+            new AddCurrencyResponse(http),
+            new RemoveCurrencyResponse(http))
          .HandleResponseAsync(update, token);
 
       await client.SendMessage(update.Message.Chat.Id, response, cancellationToken: token);

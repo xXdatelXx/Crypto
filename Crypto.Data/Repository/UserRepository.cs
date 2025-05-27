@@ -21,7 +21,9 @@ public class UserRepository : IUserRepository {
    }
 
    public async Task<User?> GetByTGIdAsync(string id, CancellationToken token) {
-      return await _dbContext.Users.FirstOrDefaultAsync(x => x.TelegramId == id, token);
+      return await _dbContext.Users
+         .Include(x => x.Currencies)
+         .FirstOrDefaultAsync(x => x.TelegramId == id, token);
    }
 
    public Task<IEnumerable<User>?> GetAll(CancellationToken token) {
