@@ -4,7 +4,7 @@ using Microsoft.EntityFrameworkCore;
 
 namespace Crypto.Data.Repository;
 
-public class CurrencyRepository(CryptoDBContext dbContext) : ICurrencyRepository {
+public sealed class CurrencyRepository(CryptoDBContext dbContext) : ICurrencyRepository {
    public async Task CreateAsync(Currency model, CancellationToken token) {
       await dbContext.Currencies.AddAsync(model, token);
       await dbContext.SaveChangesAsync(token);
@@ -36,7 +36,7 @@ public class CurrencyRepository(CryptoDBContext dbContext) : ICurrencyRepository
       await UpdateAsync(model, token);
    }
 
-   public async Task<Currency?> GetByNameAsync(string name, CancellationToken token) => 
+   public async Task<Currency?> GetByNameAsync(string name, CancellationToken token) =>
       await dbContext.Currencies
          .Include(x => x.Users)
          .Where(i => i.Name == name)

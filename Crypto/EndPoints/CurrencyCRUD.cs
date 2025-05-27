@@ -5,7 +5,7 @@ using Microsoft.AspNetCore.Mvc;
 namespace Crypto.EndPoints;
 
 [Route("api/[controller]"), ApiController]
-public class CurrencyCRUD(IMediator mediator) : ControllerBase {
+public sealed class CurrencyCRUD(IMediator mediator) : ControllerBase {
    [HttpPost, Route("CreateCurrency")]
    public async Task<IActionResult> CreateCurrency(string name, CancellationToken token = default) {
       return Ok(await mediator.Send(new CreateCurrencyCommand(name), token));

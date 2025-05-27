@@ -3,7 +3,7 @@ using Telegram.Bot.Types;
 
 namespace Crypto.Telegram.Realisations;
 
-public class UpdateCredentialsResponse(HttpClient http) : IMessageResponse {
+public sealed class UpdateCredentialsResponse(HttpClient http) : IMessageResponse {
    public async Task<string?> HandleResponseAsync(Update update, CancellationToken token) {
       string message = update.Message.Text;
       string command = message.Split(' ')[0];

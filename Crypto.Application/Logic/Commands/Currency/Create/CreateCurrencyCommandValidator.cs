@@ -2,7 +2,7 @@
 
 namespace Crypto.Application.Logic.Commands;
 
-public class CreateCurrencyCommandValidator : AbstractValidator<CreateCurrencyCommand> {
+public sealed class CreateCurrencyCommandValidator : AbstractValidator<CreateCurrencyCommand> {
    public CreateCurrencyCommandValidator() {
       RuleFor(x => x.Name)
          .NotEmpty()

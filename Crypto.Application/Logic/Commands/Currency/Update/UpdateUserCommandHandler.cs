@@ -5,7 +5,7 @@ using MediatR;
 
 namespace Crypto.Application.Logic.Commands;
 
-public class UpdateCurrencyCommandHandler(ICurrencyRepository currencyRepository, IUserRepository userRepository) : IRequestHandler<UpdateCurrencyCommand, CurrencyDTO> {
+public sealed class UpdateCurrencyCommandHandler(ICurrencyRepository currencyRepository, IUserRepository userRepository) : IRequestHandler<UpdateCurrencyCommand, CurrencyDTO> {
    public async Task<CurrencyDTO> Handle(UpdateCurrencyCommand request, CancellationToken cancellationToken) {
       var validator = new UpdateCurrencyCommandValidator();
       var validationResult = await validator.ValidateAsync(request, cancellationToken);

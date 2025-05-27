@@ -7,7 +7,7 @@ using Microsoft.AspNetCore.Mvc;
 namespace Crypto.EndPoints;
 
 [Route("api/[controller]"), ApiController]
-public class UserCRUD(IMediator mediator) : ControllerBase {
+public sealed class UserCRUD(IMediator mediator) : ControllerBase {
    [HttpPost, Route("CreateUser")]
    public async Task<IActionResult> CreateUser(string telegramId, string bybitKey, string bybitSicret, CancellationToken token = default) {
       return Ok(await mediator.Send(new CreateUserCommand(telegramId, bybitKey, bybitSicret), token));

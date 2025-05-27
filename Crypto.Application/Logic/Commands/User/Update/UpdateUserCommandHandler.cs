@@ -6,8 +6,7 @@ using MediatR;
 
 namespace Crypto.Application.Logic.Commands;
 
-public class UpdateUserCommandHandler(IUserRepository userRepository, ICurrencyRepository currencyRepository)
-   : IRequestHandler<UpdateUserCommand, UserDTO> {
+public sealed class UpdateUserCommandHandler(IUserRepository userRepository, ICurrencyRepository currencyRepository) : IRequestHandler<UpdateUserCommand, UserDTO> {
    public async Task<UserDTO> Handle(UpdateUserCommand request, CancellationToken cancellationToken) {
       var validator = new UpdateUserCommandValidator();
       var validationResult = await validator.ValidateAsync(request, cancellationToken);
@@ -23,17 +22,17 @@ public class UpdateUserCommandHandler(IUserRepository userRepository, ICurrencyR
       if (old.Currencies == null)
          old.Currencies = new List<Currency>();
 
-      foreach (var c in request.user.Currencies.ToList()) {
-         var c2 = await currencyRepository.GetByNameAsync(c, cancellationToken);
-         if (c2 == null) {
-            await currencyRepository.CreateAsync(new Currency { Name = c, Users = new List<User> { old } }, cancellationToken);
+      foreach (var name in request.user.Currencies.ToList()) {
+         var currency = await currencyRepository.GetByNameAsync(name, cancellationToken);
+         if (currency == null) {
+            await currencyRepository.CreateAsync(new Currency { Name = name, Users = new List<User> { old } }, cancellationToken);
          }
          else {
-            if (c2.Users == null || c2.Users.Count == 0)
-               c2.Users = new List<User> { old };
+            if (currency.Users == null || currency.Users.Count == 0)
+               currency.Users = new List<User> { old };
             else
-               c2.Users.Add(old);
-            currencyRepository.UpdateAsync(c2, cancellationToken);
+               currency.Users.Add(old);
+            currencyRepository.UpdateAsync(currency, cancellationToken);
          }
       }
 

@@ -6,7 +6,7 @@ using Microsoft.AspNetCore.Mvc;
 namespace Crypto.EndPoints;
 
 [Route("api/[controller]"), ApiController]
-public class PriceEndPoint(IMediator mediator) : ControllerBase {
+public sealed class PriceEndPoint(IMediator mediator) : ControllerBase {
    [HttpGet, Route("GetPrice")]
    public async Task<IActionResult> GetPriceAsync(string currency, DateTime? time = null) {
       return Ok(await mediator.Send(new GetPriceQuery(currency, time)));

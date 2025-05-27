@@ -7,7 +7,7 @@ using Telegram.Bot.Types;
 
 namespace Crypto.Telegram;
 
-public class Bot(ITelegramBotClient client, IHttpClientFactory httpClientFactory, ILogger<Bot> logger) : BackgroundService {
+public sealed class Bot(ITelegramBotClient client, IHttpClientFactory httpClientFactory, ILogger<Bot> logger) : BackgroundService {
    protected override async Task ExecuteAsync(CancellationToken cancellationToken) {
       client.StartReceiving(
          HandleUpdateAsync,

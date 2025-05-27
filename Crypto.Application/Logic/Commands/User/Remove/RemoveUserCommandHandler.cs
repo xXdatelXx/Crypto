@@ -4,7 +4,7 @@ using MediatR;
 
 namespace Crypto.Application.Logic.Commands;
 
-public class RemoveUserCommandHandler(IUserRepository repository) : IRequestHandler<RemoveUserCommand, Unit> {
+public sealed class RemoveUserCommandHandler(IUserRepository repository) : IRequestHandler<RemoveUserCommand, Unit> {
    public async Task<Unit> Handle(RemoveUserCommand request, CancellationToken cancellationToken) {
       User user = await repository.GetAsync(request.id, cancellationToken);
       await repository.DeleteAsync(user, cancellationToken);

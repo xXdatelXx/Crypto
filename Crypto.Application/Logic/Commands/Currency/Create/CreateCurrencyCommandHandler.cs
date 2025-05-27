@@ -5,8 +5,7 @@ using MediatR;
 
 namespace Crypto.Application.Logic.Commands;
 
-public class CreateCurrencyCommandHandler(ICurrencyRepository repository)
-   : IRequestHandler<CreateCurrencyCommand, CurrencyDTO> {
+public sealed class CreateCurrencyCommandHandler(ICurrencyRepository repository) : IRequestHandler<CreateCurrencyCommand, CurrencyDTO> {
    public async Task<CurrencyDTO> Handle(CreateCurrencyCommand request, CancellationToken cancellationToken) {
       var validator = new CreateCurrencyCommandValidator();
       var validationResult = await validator.ValidateAsync(request, cancellationToken);
