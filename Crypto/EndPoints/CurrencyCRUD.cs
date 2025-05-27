@@ -14,7 +14,7 @@ public sealed class CurrencyCRUD(IMediator mediator) : ControllerBase {
       return Ok(await mediator.Send(new CreateCurrencyCommand(name), token));
    }
 
-   [HttpPut, Route("UpdateCurrency")]
+   [HttpPost, Route("UpdateCurrency")]
    public async Task<IActionResult> UpdateCurrency(Guid id, string name, CancellationToken token = default) {
       CurrencyDTO currency = new() {
          Id = id,

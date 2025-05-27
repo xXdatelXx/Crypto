@@ -25,7 +25,6 @@ public sealed class Bot(ITelegramBotClient client, IHttpClientFactory httpClient
          return;
 
       using var http = httpClientFactory.CreateClient();
-      http.BaseAddress = new Uri("https://localhost:44396/");
 
       string? response = await new MessageResponseHandler.MessageResponseHandler(
             new StartResponse(),

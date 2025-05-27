@@ -1,11 +1,12 @@
-﻿using MediatR;
+using MediatR;
 using Newtonsoft.Json.Linq;
+using Microsoft.Extensions.Configuration;
 
 namespace Crypto.Queries.Queries.GreedFear;
 
-public sealed class GreedFearQueryHandler(IHttpClientFactory httpClientFactory) : IRequestHandler<GreedFearQuery, string> {
+public sealed class GreedFearQueryHandler(IHttpClientFactory httpClientFactory, IConfiguration configuration) : IRequestHandler<GreedFearQuery, string> {
    public async Task<string> Handle(GreedFearQuery request, CancellationToken cancellationToken) {
-      string apiKey = "6698c20e-70a1-4750-afd5-4f8f451d5adc";
+      string apiKey = configuration["CoinMarketCapApiKey"];
       string url = "https://pro-api.coinmarketcap.com/v3/fear-and-greed/latest";
 
       using HttpClient client = httpClientFactory.CreateClient();

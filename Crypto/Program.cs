@@ -14,9 +14,11 @@ builder.Services.AddControllers();
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
 builder.Services.AddHttpClient();
+builder.Configuration.AddUserSecrets<Program>();
 
 builder.Services.AddDbContext<CryptoDBContext>(options =>
-   options.UseNpgsql("Host=localhost;Database=CryptoDb;Username=postgres;Password=1"));
+   options.UseNpgsql(builder.Configuration.GetConnectionString("CryptoDB"))
+);
 
 builder.Services.AddMediatR(cfg => {
    cfg.RegisterServicesFromAssembly(typeof(GetPriceQueryHandler).Assembly);
@@ -26,7 +28,9 @@ builder.Services.AddMediatR(cfg => {
 
 builder.Services.AddScoped<ICurrencyRepository, CurrencyRepository>();
 builder.Services.AddScoped<IUserRepository, UserRepository>();
-builder.Services.AddSingleton<ITelegramBotClient>(new TelegramBotClient("8040659146:AAEeJELy6WOw9PJPiEi-PIXdJpOKHzzNOVw"));
+builder.Services.AddSingleton<ITelegramBotClient>(new TelegramBotClient(
+    builder.Configuration["TelegramBotToken"]
+));
 
 builder.Services.AddHostedService<Bot>();
 
