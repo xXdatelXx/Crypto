@@ -20,7 +20,7 @@ public class CreateUserCommandHandler(IUserRepository repository) : IRequestHand
       };
 
       //if (await repository.CheckDoublingAsync(user, cancellationToken) == false)
-      await repository.Create(user, cancellationToken);
+      await repository.CreateAsync(user, cancellationToken);
 
       return new UserDTO {
          TelegramId = user.TelegramId,

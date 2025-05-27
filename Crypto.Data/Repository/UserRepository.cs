@@ -5,7 +5,7 @@ using Microsoft.EntityFrameworkCore;
 namespace Crypto.Data.Repository;
 
 public class UserRepository(CryptoDBContext dbContext) : IUserRepository {
-   public async Task Create(User model, CancellationToken token) {
+   public async Task CreateAsync(User model, CancellationToken token) {
       await dbContext.Users.AddAsync(model, token);
       await dbContext.SaveChangesAsync(token);
    }
