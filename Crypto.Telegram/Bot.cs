@@ -1,4 +1,5 @@
-﻿using Crypto.Telegram.Realisations;
+﻿using Crypto.Telegram.MessageResponseHandler.Realisations;
+using Crypto.Telegram.MessageResponseHandler.Realisations.UserUpdate;
 using Microsoft.Extensions.Hosting;
 using Microsoft.Extensions.Logging;
 using Telegram.Bot;
@@ -26,7 +27,7 @@ public sealed class Bot(ITelegramBotClient client, IHttpClientFactory httpClient
       using var http = httpClientFactory.CreateClient();
       http.BaseAddress = new Uri("https://localhost:44396/");
 
-      string? response = await new MessageResponseHandler(
+      string? response = await new MessageResponseHandler.MessageResponseHandler(
             new StartResponse(),
             new LoginResponse(http),
             new PriceResponse(http),

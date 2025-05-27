@@ -1,4 +1,4 @@
-﻿namespace Crypto.Application.Logic.Commands;
+﻿namespace Crypto.Application.Model;
 
 public class CurrencyDTO {
    public Guid Id { get; set; }

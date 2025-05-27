@@ -1,14 +1,13 @@
 ﻿using System.Net.Http.Json;
 using System.Security.Cryptography;
 using System.Text;
-using Crypto.Application.Model;
 using Crypto.Data;
-using Crypto.Queris.Model;
+using Crypto.Queries.Model;
 using MediatR;
 using Microsoft.EntityFrameworkCore;
 using Newtonsoft.Json.Linq;
 
-namespace Crypto.Application.Logic.Queries.Wallet;
+namespace Crypto.Queries.Queries.Wallet;
 
 // Writed by ChatGPT 
 public sealed class GetWalletQueryHandler(CryptoDBContext dBContext, IHttpClientFactory httpClientFactory) : IRequestHandler<GetWalletQuery, WalletModel> {

@@ -1,11 +1,9 @@
 ﻿using Crypto.Application.Model;
 using Crypto.Data.Interface;
-using Crypto.Data.Models;
 using FluentValidation;
 using MediatR;
-using Microsoft.EntityFrameworkCore;
 
-namespace Crypto.Application.Logic.Commands;
+namespace Crypto.Application.Logic.Commands.User.Update;
 
 public sealed class UpdateUserCommandHandler(IUserRepository userRepository, ICurrencyRepository currencyRepository) : IRequestHandler<UpdateUserCommand, UserDTO> {
    public async Task<UserDTO> Handle(UpdateUserCommand request, CancellationToken cancellationToken) {
@@ -21,16 +19,16 @@ public sealed class UpdateUserCommandHandler(IUserRepository userRepository, ICu
       old.ByBitApiSicret = request.user.ByBitApiSicret;
 
       if (old.Currencies == null)
-         old.Currencies = new List<Currency>();
+         old.Currencies = new List<Data.Models.Currency>();
 
       foreach (var name in request.user.Currencies.ToList()) {
          var currency = await currencyRepository.GetByNameAsync(name, cancellationToken);
          if (currency == null) {
-            await currencyRepository.CreateAsync(new Currency { Name = name, Users = new List<User> { old } }, cancellationToken);
+            await currencyRepository.CreateAsync(new Data.Models.Currency { Name = name, Users = new List<Data.Models.User> { old } }, cancellationToken);
          }
          else {
             if (currency.Users == null || currency.Users.Count == 0)
-               currency.Users = new List<User> { old };
+               currency.Users = new List<Data.Models.User> { old };
             else
                currency.Users.Add(old);
             await currencyRepository.UpdateAsync(currency, cancellationToken);

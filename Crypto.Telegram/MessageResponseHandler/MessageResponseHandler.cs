@@ -1,6 +1,6 @@
 ﻿using Telegram.Bot.Types;
 
-namespace Crypto.Telegram;
+namespace Crypto.Telegram.MessageResponseHandler;
 
 public sealed class MessageResponseHandler(params IMessageResponse[] handlers) : IMessageResponse {
    public async Task<string?> HandleResponseAsync(Update update, CancellationToken token) {

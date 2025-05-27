@@ -3,7 +3,7 @@ using System.Text;
 using System.Text.Json;
 using Crypto.Application.Model;
 
-namespace Crypto.Telegram.Realisations;
+namespace Crypto.Telegram.MessageResponseHandler.Realisations.UserUpdate;
 
 // Rewrite
 public sealed class UserUpdate(HttpClient http) {

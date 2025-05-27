@@ -1,5 +1,5 @@
-﻿using Crypto.Application.Logic.Queries.Price;
-using Crypto.Queris.Model;
+﻿using Crypto.Queries.Model;
+using Crypto.Queries.Queries.Price;
 using MediatR;
 using Microsoft.AspNetCore.Mvc;
 

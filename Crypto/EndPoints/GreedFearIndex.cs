@@ -1,4 +1,4 @@
-﻿using Crypto.Application.Logic.Queries.GreedFear;
+﻿using Crypto.Queries.Queries.GreedFear;
 using MediatR;
 using Microsoft.AspNetCore.Mvc;
 

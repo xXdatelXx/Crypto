@@ -1,6 +1,6 @@
-﻿using Crypto.Queris.Model;
+﻿using Crypto.Queries.Model;
 using MediatR;
 
-namespace Crypto.Application.Logic.Queries;
+namespace Crypto.Queries.Queries.User;
 
 public record GetUserByTGIdQuery(string telegramId) : IRequest<UserModel>;

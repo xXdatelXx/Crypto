@@ -1,4 +1,4 @@
-﻿using Crypto.Application.Logic.Queries.Wallet;
+﻿using Crypto.Queries.Queries.Wallet;
 using MediatR;
 using Microsoft.AspNetCore.Mvc;
 

@@ -1,7 +1,7 @@
 using System.Net.Http.Json;
 using Telegram.Bot.Types;
 
-namespace Crypto.Telegram.Realisations;
+namespace Crypto.Telegram.MessageResponseHandler.Realisations;
 
 public sealed class PriceResponse(HttpClient http) : IMessageResponse {
    public async Task<string?> HandleResponseAsync(Update update, CancellationToken token) {

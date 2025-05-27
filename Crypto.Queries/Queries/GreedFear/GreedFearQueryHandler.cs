@@ -1,7 +1,7 @@
 ﻿using MediatR;
 using Newtonsoft.Json.Linq;
 
-namespace Crypto.Application.Logic.Queries.GreedFear;
+namespace Crypto.Queries.Queries.GreedFear;
 
 public sealed class GreedFearQueryHandler(IHttpClientFactory httpClientFactory) : IRequestHandler<GreedFearQuery, string> {
    public async Task<string> Handle(GreedFearQuery request, CancellationToken cancellationToken) {

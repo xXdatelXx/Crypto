@@ -1,8 +1,8 @@
 using System.Net.Http.Json;
-using Crypto.Queris.Model;
+using Crypto.Queries.Model;
 using Telegram.Bot.Types;
 
-namespace Crypto.Telegram.Realisations;
+namespace Crypto.Telegram.MessageResponseHandler.Realisations;
 
 public sealed class DifferenceResponse(HttpClient http) : IMessageResponse {
    public async Task<string?> HandleResponseAsync(Update update, CancellationToken token) {

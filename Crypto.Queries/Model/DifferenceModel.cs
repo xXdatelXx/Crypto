@@ -1,4 +1,4 @@
-﻿namespace Crypto.Queris.Model;
+﻿namespace Crypto.Queries.Model;
 
 public class DifferenceModel {
    public string Symbol { get; set; }

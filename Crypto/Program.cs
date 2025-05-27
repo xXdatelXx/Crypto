@@ -1,9 +1,9 @@
-using Crypto.Application.Logic.Commands;
-using Crypto.Application.Logic.Queries.GreedFear;
-using Crypto.Application.Logic.Queries.Price;
+using Crypto.Application.Logic.Commands.User.Update;
 using Crypto.Data;
 using Crypto.Data.Interface;
 using Crypto.Data.Repository;
+using Crypto.Queries.Queries.GreedFear;
+using Crypto.Queries.Queries.Price;
 using Crypto.Telegram;
 using Microsoft.EntityFrameworkCore;
 using Telegram.Bot;

@@ -5,7 +5,7 @@ using Telegram.Bot.Types;
 
 #endregion
 
-namespace Crypto.Telegram.Realisations;
+namespace Crypto.Telegram.MessageResponseHandler.Realisations.UserUpdate;
 
 public sealed class AddCurrencyResponse(HttpClient http) : IMessageResponse {
    public async Task<string?> HandleResponseAsync(Update update, CancellationToken token) {

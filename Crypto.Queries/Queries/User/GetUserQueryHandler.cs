@@ -1,13 +1,12 @@
 ﻿using Crypto.Data.Interface;
-using Crypto.Data.Models;
-using Crypto.Queris.Model;
+using Crypto.Queries.Model;
 using MediatR;
 
-namespace Crypto.Application.Logic.Queries;
+namespace Crypto.Queries.Queries.User;
 
 public sealed class GetUserQueryHandler(IUserRepository repository) : IRequestHandler<GetUserByTGIdQuery, UserModel> {
    public async Task<UserModel> Handle(GetUserByTGIdQuery request, CancellationToken cancellationToken) {
-      User user = await repository.GetByTGIdAsync(request.telegramId, cancellationToken);
+      Data.Models.User user = await repository.GetByTGIdAsync(request.telegramId, cancellationToken);
       return new UserModel {
          Id = user.Id,
          TelegramId = user.TelegramId,

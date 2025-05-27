@@ -1,4 +1,4 @@
-﻿namespace Crypto.Queris.Model;
+﻿namespace Crypto.Queries.Model;
 
 public class UserModel {
    public Guid Id { get; set; }

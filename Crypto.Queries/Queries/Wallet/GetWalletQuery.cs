@@ -1,6 +1,6 @@
-﻿using Crypto.Application.Model;
+﻿using Crypto.Queries.Model;
 using MediatR;
 
-namespace Crypto.Application.Logic.Queries.Wallet;
+namespace Crypto.Queries.Queries.Wallet;
 
 public record GetWalletQuery(string telegramId) : IRequest<WalletModel>;

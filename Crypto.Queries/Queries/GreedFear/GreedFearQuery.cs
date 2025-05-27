@@ -1,5 +1,5 @@
 ﻿using MediatR;
 
-namespace Crypto.Application.Logic.Queries.GreedFear;
+namespace Crypto.Queries.Queries.GreedFear;
 
 public record GreedFearQuery : IRequest<string>;

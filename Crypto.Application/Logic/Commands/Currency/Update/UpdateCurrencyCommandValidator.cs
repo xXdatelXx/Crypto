@@ -1,6 +1,6 @@
 ﻿using FluentValidation;
 
-namespace Crypto.Application.Logic.Commands;
+namespace Crypto.Application.Logic.Commands.Currency.Update;
 
 public sealed class UpdateCurrencyCommandValidator : AbstractValidator<UpdateCurrencyCommand> {
    public UpdateCurrencyCommandValidator() {

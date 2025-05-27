@@ -1,4 +1,7 @@
-﻿using Crypto.Application.Logic.Commands;
+﻿using Crypto.Application.Logic.Commands.Currency.Create;
+using Crypto.Application.Logic.Commands.Currency.Remove;
+using Crypto.Application.Logic.Commands.Currency.Update;
+using Crypto.Application.Model;
 using MediatR;
 using Microsoft.AspNetCore.Mvc;
 

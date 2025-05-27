@@ -1,6 +1,8 @@
-﻿using Crypto.Application.Logic.Commands;
-using Crypto.Application.Logic.Queries;
+﻿using Crypto.Application.Logic.Commands.User.Create;
+using Crypto.Application.Logic.Commands.User.Remove;
+using Crypto.Application.Logic.Commands.User.Update;
 using Crypto.Application.Model;
+using Crypto.Queries.Queries.User;
 using MediatR;
 using Microsoft.AspNetCore.Mvc;
 

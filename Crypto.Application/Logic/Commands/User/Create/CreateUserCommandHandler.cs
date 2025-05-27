@@ -1,11 +1,10 @@
 ﻿using Crypto.Application.Model;
 using Crypto.Data.Interface;
-using Crypto.Data.Models;
 using FluentValidation;
 using MediatR;
 using Microsoft.EntityFrameworkCore;
 
-namespace Crypto.Application.Logic.Commands;
+namespace Crypto.Application.Logic.Commands.User.Create;
 
 public sealed class CreateUserCommandHandler(IUserRepository repository) : IRequestHandler<CreateUserCommand, UserDTO> {
    public async Task<UserDTO> Handle(CreateUserCommand request, CancellationToken cancellationToken) {
@@ -14,7 +13,7 @@ public sealed class CreateUserCommandHandler(IUserRepository repository) : IRequ
       if (!validationResult.IsValid)
          throw new ValidationException(validationResult.Errors);
 
-      User user = new() {
+      Data.Models.User user = new() {
          TelegramId = request.telegramId,
          ByBitApiKey = request.bybitKey,
          ByBitApiSicret = request.bybitSicret

@@ -1,7 +1,7 @@
 ﻿using MediatR;
 using Newtonsoft.Json.Linq;
 
-namespace Crypto.Application.Logic.Queries.Price;
+namespace Crypto.Queries.Queries.Price;
 
 public sealed class GetPriceQueryHandler(IHttpClientFactory httpClientFactory) : IRequestHandler<GetPriceQuery, float> {
    public async Task<float> Handle(GetPriceQuery request, CancellationToken cancellationToken) {

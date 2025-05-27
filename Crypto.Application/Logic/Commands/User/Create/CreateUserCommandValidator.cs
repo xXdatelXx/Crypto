@@ -1,6 +1,6 @@
 ﻿using FluentValidation;
 
-namespace Crypto.Application.Logic.Commands;
+namespace Crypto.Application.Logic.Commands.User.Create;
 
 public sealed class CreateUserCommandValidator : AbstractValidator<CreateUserCommand> {
    public CreateUserCommandValidator() {
