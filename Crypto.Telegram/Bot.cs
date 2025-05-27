@@ -23,8 +23,7 @@ public class Bot(ITelegramBotClient client, IHttpClientFactory httpClientFactory
       if (update.Message?.Text == null)
          return;
 
-      var http = httpClientFactory.CreateClient();
-      //http.BaseAddress = new Uri("https://localhost:5015/");
+      using var http = httpClientFactory.CreateClient();
       http.BaseAddress = new Uri("https://localhost:44396/");
 
       string? response = await new MessageResponseHandler(

@@ -2,4 +2,4 @@
 
 namespace Crypto.Application.Logic.Queries.Price;
 
-public record class GetPriceQuery(string currency, DateTime? time = null) : IRequest<float>;
+public record GetPriceQuery(string currency, DateTime? time = null) : IRequest<float>;

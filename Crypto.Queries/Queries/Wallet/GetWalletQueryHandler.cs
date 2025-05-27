@@ -10,8 +10,8 @@ using Newtonsoft.Json.Linq;
 
 namespace Crypto.Application.Logic.Queries.Wallet;
 
-// ToDo: Rewrite
-public class GetWalletQueryHandler(CryptoDBContext dBContext) : IRequestHandler<GetWalletQuery, WalletModel> {
+// Writed by ChatGPT 
+public class GetWalletQueryHandler(CryptoDBContext dBContext, IHttpClientFactory httpClientFactory) : IRequestHandler<GetWalletQuery, WalletModel> {
    public async Task<WalletModel> Handle(GetWalletQuery request, CancellationToken cancellationToken) {
       var user = await dBContext.Users.Where(x => x.TelegramId == request.telegramId).Select(u => new UserModel {
          ByBitApiKey = u.ByBitApiKey,
@@ -27,7 +27,7 @@ public class GetWalletQueryHandler(CryptoDBContext dBContext) : IRequestHandler<
       var recvWindow = "10000";
       var query = "accountType=UNIFIED";
 
-      using HttpClient client = new();
+      using HttpClient client = httpClientFactory.CreateClient();
 
       var timeResponse = await client.GetFromJsonAsync<ServerTimeResponse>("https://api.bybit.com/v5/market/time", cancellationToken);
       var timestamp = timeResponse.time.ToString();

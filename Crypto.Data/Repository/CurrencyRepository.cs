@@ -4,34 +4,28 @@ using Microsoft.EntityFrameworkCore;
 
 namespace Crypto.Data.Repository;
 
-public class CurrencyRepository : ICurrencyRepository {
-   private readonly CryptoDBContext _dbContext;
-
-   public CurrencyRepository(CryptoDBContext dbContext) {
-      _dbContext = dbContext;
-   }
-
+public class CurrencyRepository(CryptoDBContext dbContext) : ICurrencyRepository {
    public async Task CreateAsync(Currency model, CancellationToken token) {
-      await _dbContext.Currencies.AddAsync(model, token);
-      await _dbContext.SaveChangesAsync(token);
+      await dbContext.Currencies.AddAsync(model, token);
+      await dbContext.SaveChangesAsync(token);
    }
 
    public async Task<Currency?> GetAsync(Guid id, CancellationToken token) {
-      return await _dbContext.Currencies.FindAsync(new object[] { id }, token);
+      return await dbContext.Currencies.FindAsync([id], token);
    }
 
    public async Task UpdateAsync(Currency model, CancellationToken token) {
-      var old = await _dbContext.Currencies.FindAsync([model.Id], token);
+      var old = await dbContext.Currencies.FindAsync([model.Id], token);
 
       if (old == null)
          throw new Exception("Currency not found");
 
-      _dbContext.Entry(old).CurrentValues.SetValues(model);
-      await _dbContext.SaveChangesAsync(token);
+      dbContext.Entry(old).CurrentValues.SetValues(model);
+      await dbContext.SaveChangesAsync(token);
    }
 
    public async Task<bool> CheckDoublingAsync(Currency model, CancellationToken token) {
-      return await _dbContext.Currencies.FirstOrDefaultAsync(e =>
+      return await dbContext.Currencies.FirstOrDefaultAsync(e =>
          e.Id != model.Id &&
          e.Name == model.Name &&
          e.Users.Distinct().Count() == model.Users.Distinct().Count(), token) == null;
@@ -42,7 +36,9 @@ public class CurrencyRepository : ICurrencyRepository {
       await UpdateAsync(model, token);
    }
 
-   public async Task<Currency?> GetByNameAsync(string name, CancellationToken token) {
-      return await _dbContext.Currencies.Include(x => x.Users).Where(i => i.Name == name).FirstOrDefaultAsync(token);
-   }
+   public async Task<Currency?> GetByNameAsync(string name, CancellationToken token) => 
+      await dbContext.Currencies
+         .Include(x => x.Users)
+         .Where(i => i.Name == name)
+         .FirstOrDefaultAsync(token);
 }

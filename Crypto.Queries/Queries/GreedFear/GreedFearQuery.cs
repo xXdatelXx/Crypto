@@ -2,4 +2,4 @@
 
 namespace Crypto.Application.Logic.Queries.GreedFear;
 
-public record class GreedFearQuery : IRequest<string>;
+public record GreedFearQuery : IRequest<string>;
