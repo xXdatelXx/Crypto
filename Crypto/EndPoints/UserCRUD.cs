@@ -2,7 +2,6 @@
 using Crypto.Application.Logic.Queries;
 using Crypto.Application.Model;
 using MediatR;
-using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 
 namespace Crypto.EndPoints;
@@ -16,17 +15,16 @@ public class UserCRUD(IMediator mediator) : ControllerBase {
 
    [HttpGet, Route("GetUser")]
    public async Task<IActionResult> GetUser(string telegramId, CancellationToken token = default) {
-       return Ok(await mediator.Send(new GetUserByTGIdQuery(telegramId), token));
+      return Ok(await mediator.Send(new GetUserByTGIdQuery(telegramId), token));
    }
 
    [HttpPost, Route("UpdateUser")]
    public async Task<IActionResult> UpdateUser(
-      Guid id, 
-      string telegramId, 
-      string bybitKey, 
+      Guid id,
+      string telegramId,
+      string bybitKey,
       string bybitSicret,
-      IEnumerable<string> currencies, CancellationToken token = default) 
-   {
+      IEnumerable<string> currencies, CancellationToken token = default) {
       UserDTO user = new() {
          Id = id,
          TelegramId = telegramId,

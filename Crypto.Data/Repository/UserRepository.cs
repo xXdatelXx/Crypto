@@ -43,7 +43,7 @@ public class UserRepository : IUserRepository {
    public async Task<bool> CheckDoublingAsync(User model, CancellationToken token) {
       return await _dbContext.Set<User>().FirstOrDefaultAsync(e =>
          e.Id != model.Id && e.TelegramId == model.TelegramId &&
-         e.ByBitApiKey == model.ByBitApiKey, cancellationToken: token) == null;
+         e.ByBitApiKey == model.ByBitApiKey, token) == null;
    }
 
    public async Task DeleteAsync(User model, CancellationToken token) {

@@ -20,7 +20,7 @@ public class UpdateCredentialsResponse(HttpClient http) : IMessageResponse {
       string byBitSecret = arguments[1];
       string telegramId = update.Message.From.Id.ToString();
 
-      UserUpdate userUpdate = new (http);
+      UserUpdate userUpdate = new(http);
       UserDTO? user = await userUpdate.Get(telegramId, token);
       if (user == null)
          return "User not found. Please ensure you are registered.";

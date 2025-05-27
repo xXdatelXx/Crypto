@@ -15,11 +15,11 @@ public class WalletResponse(HttpClient http) : IMessageResponse {
       var telegramId = update.Message.From?.Id;
       var model = await http.GetFromJsonAsync<WalletModel>($"api/Wallet/GetWallet?telegramId={telegramId}", token);
 
-      return   
-         model is not null 
+      return
+         model is not null
             ? $"Total: {model.Total}\n USD" +
-              "Assets:\n" + 
-              string.Join("\n", model.Assets.Select(a => $" - {a.Item1}: {a.Item2} USD")) 
+              "Assets:\n" +
+              string.Join("\n", model.Assets.Select(a => $" - {a.Item1}: {a.Item2} USD"))
             : "No wallet found for this user.";
    }
 }

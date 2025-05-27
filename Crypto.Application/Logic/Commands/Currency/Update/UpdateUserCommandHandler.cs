@@ -11,7 +11,7 @@ public class UpdateCurrencyCommandHandler(ICurrencyRepository currencyRepository
       var validationResult = await validator.ValidateAsync(request, cancellationToken);
       if (!validationResult.IsValid)
          throw new ValidationException(validationResult.Errors);
-      
+
       Currency old = await currencyRepository.GetAsync(request.currency.Id, cancellationToken);
 
       old.Name = request.currency.Name;

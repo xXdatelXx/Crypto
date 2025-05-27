@@ -34,7 +34,7 @@ public class CurrencyRepository : ICurrencyRepository {
       return await _dbContext.Currencies.FirstOrDefaultAsync(e =>
          e.Id != model.Id &&
          e.Name == model.Name &&
-         e.Users.Distinct().Count() == model.Users.Distinct().Count(), cancellationToken: token) == null;
+         e.Users.Distinct().Count() == model.Users.Distinct().Count(), token) == null;
    }
 
    public async Task DeleteAsync(Currency model, CancellationToken token) {

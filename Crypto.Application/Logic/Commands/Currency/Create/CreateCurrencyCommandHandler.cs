@@ -12,7 +12,7 @@ public class CreateCurrencyCommandHandler(ICurrencyRepository repository)
       var validationResult = await validator.ValidateAsync(request, cancellationToken);
       if (!validationResult.IsValid)
          throw new ValidationException(validationResult.Errors);
-      
+
       Currency currency = new() {
          Name = request.Name
       };

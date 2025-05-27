@@ -2,7 +2,7 @@
 
 namespace Crypto.Application.Logic.Commands;
 
-public sealed class CreateUserCommandValidator  : AbstractValidator<CreateUserCommand> {
+public sealed class CreateUserCommandValidator : AbstractValidator<CreateUserCommand> {
    public CreateUserCommandValidator() {
       RuleFor(x => x.telegramId)
          .NotEmpty()

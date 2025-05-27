@@ -18,7 +18,7 @@ public sealed class LoginResponse(HttpClient http) : IMessageResponse {
       string byBitKey = arguments[0];
       string byBitSecret = arguments[1];
       string telegramId = update.Message.From.Id.ToString();
-      
+
       var url = $"api/UserCRUD/CreateUser?" +
                 $"telegramId={telegramId}" +
                 $"&bybitKey={byBitKey}" +
@@ -26,9 +26,9 @@ public sealed class LoginResponse(HttpClient http) : IMessageResponse {
 
       var response = await http.PostAsync(url, null, token);
       response.EnsureSuccessStatusCode();
-      
-      return response.IsSuccessStatusCode 
-         ? "User created successfully: " 
+
+      return response.IsSuccessStatusCode
+         ? "User created successfully: "
          : "Failed to create user. Please check your input and try again.";
    }
 }

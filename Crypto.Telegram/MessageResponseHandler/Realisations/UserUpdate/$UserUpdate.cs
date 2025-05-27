@@ -12,22 +12,22 @@ public sealed class UserUpdate(HttpClient http) {
       if (!getResponse.IsSuccessStatusCode)
          return null;
 
-      return await getResponse.Content.ReadFromJsonAsync<UserDTO>(cancellationToken: token);
+      return await getResponse.Content.ReadFromJsonAsync<UserDTO>(token);
    }
-   
+
    public async Task<string> Update(UserDTO user, CancellationToken token) {
       var url = "/api/UserCRUD/UpdateUser" +
                 $"?id={user.Id}" +
                 $"&telegramId={user.TelegramId}" +
                 $"&bybitKey={user.ByBitApiKey}" +
                 $"&bybitSicret={user.ByBitApiSicret}";
-      
+
       string jsonBody = JsonSerializer.Serialize(user.Currencies?.ToList() ?? []);
       var content = new StringContent(jsonBody, Encoding.UTF8, "application/json");
 
       var updateResponse = await http.PostAsync(url, content, token);
-      return updateResponse.IsSuccessStatusCode 
-         ? "User updated successfully." 
+      return updateResponse.IsSuccessStatusCode
+         ? "User updated successfully."
          : "Failed to update user. Please check your input and try again.";
    }
 }

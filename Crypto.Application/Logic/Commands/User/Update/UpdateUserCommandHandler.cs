@@ -13,7 +13,7 @@ public class UpdateUserCommandHandler(IUserRepository userRepository, ICurrencyR
       var validationResult = await validator.ValidateAsync(request, cancellationToken);
       if (!validationResult.IsValid)
          throw new ValidationException(validationResult.Errors);
-      
+
       var old = await userRepository.GetAsync(request.user.Id, cancellationToken);
 
       old.TelegramId = request.user.TelegramId;
@@ -38,7 +38,7 @@ public class UpdateUserCommandHandler(IUserRepository userRepository, ICurrencyR
       }
 
       var toRemove = old.Currencies?.Where(c => !request.user.Currencies.Contains(c.Name)).ToList();
-      foreach (var currency in toRemove) 
+      foreach (var currency in toRemove)
          old.Currencies.Remove(currency);
 
       userRepository.UpdateAsync(old, cancellationToken);

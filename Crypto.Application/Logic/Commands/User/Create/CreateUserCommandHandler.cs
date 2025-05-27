@@ -12,7 +12,7 @@ public class CreateUserCommandHandler(IUserRepository repository) : IRequestHand
       var validationResult = await validator.ValidateAsync(request, cancellationToken);
       if (!validationResult.IsValid)
          throw new ValidationException(validationResult.Errors);
-      
+
       User user = new() {
          TelegramId = request.telegramId,
          ByBitApiKey = request.bybitKey,

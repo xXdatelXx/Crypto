@@ -17,8 +17,8 @@ public class GetWalletQueryHandler(CryptoDBContext dBContext) : IRequestHandler<
          ByBitApiKey = u.ByBitApiKey,
          ByBitApiSicret = u.ByBitApiSicret
       }).FirstOrDefaultAsync(cancellationToken);
-      
-      if (user == null) 
+
+      if (user == null)
          return null;
 
       var apiKey = user.ByBitApiKey;
@@ -29,7 +29,7 @@ public class GetWalletQueryHandler(CryptoDBContext dBContext) : IRequestHandler<
 
       using HttpClient client = new();
 
-      var timeResponse = await client.GetFromJsonAsync<ServerTimeResponse>("https://api.bybit.com/v5/market/time", cancellationToken: cancellationToken);
+      var timeResponse = await client.GetFromJsonAsync<ServerTimeResponse>("https://api.bybit.com/v5/market/time", cancellationToken);
       var timestamp = timeResponse.time.ToString();
 
       var toSign = timestamp + apiKey + recvWindow + query;
@@ -54,7 +54,7 @@ public class GetWalletQueryHandler(CryptoDBContext dBContext) : IRequestHandler<
          ))
          .ToList();
 
-        return new WalletModel {
+      return new WalletModel {
          Assets = balances
       };
 
@@ -65,10 +65,9 @@ public class GetWalletQueryHandler(CryptoDBContext dBContext) : IRequestHandler<
          var hash = hmacsha256.ComputeHash(messageBytes);
          return BitConverter.ToString(hash).Replace("-", "").ToLower();
       }
-      
    }
-   public class ServerTimeResponse
-   {
+
+   public class ServerTimeResponse {
       public long time { get; set; }
    }
 }
