@@ -10,9 +10,11 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Crypto.Data", "Crypto.Data\
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Crypto.Telegram", "Crypto.Telegram\Crypto.Telegram.csproj", "{9A987364-3E7C-4BF2-A849-C74355FA436E}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Crypto.Queries", "Crypto.Queries\Crypto.Queries.csproj", "{53BFB3C2-E3BD-4642-8F85-EE78F047AD29}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Crypto.Queries", "Crypto.Queries\Crypto.Queries.csproj", "{53BFB3C2-E3BD-4642-8F85-EE78F047AD29}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Crypto.Tests", "Crypto.Tests\Crypto.Tests.csproj", "{E6F74BA1-41D3-4F5A-B882-2F3922B34852}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Crypto.Tests", "Crypto.Tests\Crypto.Tests.csproj", "{E6F74BA1-41D3-4F5A-B882-2F3922B34852}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Crypto.Function", "Crypto.Function\Crypto.Function.csproj", "{C068425A-D7BC-4E3E-AA4C-1FD65AFE0C0E}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -44,6 +46,10 @@ Global
 		{E6F74BA1-41D3-4F5A-B882-2F3922B34852}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{E6F74BA1-41D3-4F5A-B882-2F3922B34852}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{E6F74BA1-41D3-4F5A-B882-2F3922B34852}.Release|Any CPU.Build.0 = Release|Any CPU
+		{C068425A-D7BC-4E3E-AA4C-1FD65AFE0C0E}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{C068425A-D7BC-4E3E-AA4C-1FD65AFE0C0E}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{C068425A-D7BC-4E3E-AA4C-1FD65AFE0C0E}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{C068425A-D7BC-4E3E-AA4C-1FD65AFE0C0E}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
