@@ -35,7 +35,8 @@ public sealed class Bot(ITelegramBotClient client, IHttpClientFactory httpClient
             new WalletResponse(http),
             new UpdateCredentialsResponse(http),
             new AddCurrencyResponse(http),
-            new RemoveCurrencyResponse(http))
+            new RemoveCurrencyResponse(http),
+            new TrackingCurrenciesResponse(http))
          .HandleResponseAsync(update, token);
 
       await client.SendMessage(update.Message.Chat.Id, response, cancellationToken: token);
