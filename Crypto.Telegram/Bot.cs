@@ -1,5 +1,5 @@
 ﻿using Crypto.Telegram.MessageResponseHandler.Realisations;
-using Crypto.Telegram.MessageResponseHandler.Realisations.UserUpdate;
+using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.Hosting;
 using Microsoft.Extensions.Logging;
 using Telegram.Bot;
@@ -8,7 +8,11 @@ using Telegram.Bot.Types;
 
 namespace Crypto.Telegram;
 
-public sealed class Bot(ITelegramBotClient client, IHttpClientFactory httpClientFactory, ILogger<Bot> logger) : BackgroundService {
+public sealed class Bot(
+   ITelegramBotClient client, 
+   IHttpClientFactory httpClientFactory, 
+   ILogger<Bot> logger, 
+   IConfiguration configuration) : BackgroundService {
    protected override async Task ExecuteAsync(CancellationToken cancellationToken) {
       client.StartReceiving(
          HandleUpdateAsync,
@@ -25,6 +29,7 @@ public sealed class Bot(ITelegramBotClient client, IHttpClientFactory httpClient
          return;
 
       using var http = httpClientFactory.CreateClient();
+      http.BaseAddress = new Uri(configuration["ApiBaseAddress"]);
 
       string? response = await new MessageResponseHandler.MessageResponseHandler(
             new StartResponse(),
