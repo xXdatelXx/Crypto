@@ -7,8 +7,8 @@ public sealed class CreateUserCommandValidator : AbstractValidator<CreateUserCom
       RuleFor(x => x.telegramId)
          .NotEmpty()
          .WithMessage("Telegram id is required.")
-         .Length(9)
-         .WithMessage("Telegram id must contains 9 characters.");
+         .MaximumLength(15)
+         .WithMessage("Telegram id must contains 15 characters.");
       RuleFor(x => x.bybitKey)
          .NotEmpty()
          .WithMessage("Bybit key is required.");

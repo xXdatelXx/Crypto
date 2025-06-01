@@ -1,11 +1,7 @@
-﻿#region
-
-using Crypto.Application.Model;
+﻿using Crypto.Application.Model;
 using Telegram.Bot.Types;
 
-#endregion
-
-namespace Crypto.Telegram.MessageResponseHandler.Realisations.UserUpdate;
+namespace Crypto.Telegram.MessageResponseHandler.Realisations;
 
 public sealed class AddCurrencyResponse(HttpClient http) : IMessageResponse {
    public async Task<string?> HandleResponseAsync(Update update, CancellationToken token) {

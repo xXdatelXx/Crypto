@@ -17,8 +17,7 @@ builder.Services.AddHttpClient();
 builder.Configuration.AddUserSecrets<Program>();
 
 builder.Services.AddDbContext<CryptoDBContext>(options =>
-   options.UseNpgsql(builder.Configuration.GetConnectionString("CryptoDB"))
-);
+   options.UseNpgsql(builder.Configuration.GetConnectionString("DefaultConnection")));
 
 builder.Services.AddMediatR(cfg => {
    cfg.RegisterServicesFromAssembly(typeof(GetPriceQueryHandler).Assembly);

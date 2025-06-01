@@ -7,8 +7,8 @@ public sealed class UpdateUserCommandValidator : AbstractValidator<UpdateUserCom
       RuleFor(x => x.user.TelegramId)
          .NotEmpty()
          .WithMessage("Telegram ID is required.")
-         .Length(9)
-         .WithMessage("Telegram ID must be exactly 9 characters long.");
+         .MaximumLength(15)
+         .WithMessage("Telegram ID must be exactly 15 characters long.");
       RuleFor(x => x.user.ByBitApiSicret)
          .NotNull()
          .WithMessage("ByBitApiSicret is required.");
