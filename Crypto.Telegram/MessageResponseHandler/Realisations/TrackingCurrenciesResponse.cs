@@ -3,15 +3,11 @@
 namespace Crypto.Telegram.MessageResponseHandler.Realisations;
 
 public sealed class TrackingCurrenciesResponse(HttpClient http) : IMessageResponse {
-   public async Task<string?> HandleResponseAsync(Update update, CancellationToken token) {
-      string message = update.Message.Text;
-      string command = message.Split(' ')[0];
-
+   public async Task<string?> HandleResponseAsync(string chatId, string command, CancellationToken token, params string[] args) {
       if (command != "/tracking")
          return null;
       
-      string telegramId = update.Message.From.Id.ToString();
-      var model = await new UserUpdate(http).Get(telegramId, token);
+      var model = await new UserUpdate(http).Get(chatId, token);
       if (model is null)
          return "No user found. Please register first using /login command.";
 
@@ -19,11 +15,7 @@ public sealed class TrackingCurrenciesResponse(HttpClient http) : IMessageRespon
       List<string> result = [];
       
       foreach (var currency in model.Currencies) {
-         var priceResponse = await price.HandleResponseAsync(new Update {
-            Message = new Message {
-               Text = "/price " + currency
-            }
-         }, token);
+         var priceResponse = await price.HandleResponseAsync(chatId, "/price", token, currency);
          if (priceResponse != null)
             result.Add($"{currency} - {priceResponse}");
       }

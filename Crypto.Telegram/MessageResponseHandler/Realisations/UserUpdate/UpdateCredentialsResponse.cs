@@ -1,27 +1,20 @@
-﻿using Crypto.Application.Model;
-using Telegram.Bot.Types;
+﻿using Crypto.Queries.Model;
 
 namespace Crypto.Telegram.MessageResponseHandler.Realisations;
 
 public sealed class UpdateCredentialsResponse(HttpClient http) : IMessageResponse {
-   public async Task<string?> HandleResponseAsync(Update update, CancellationToken token) {
-      string message = update.Message.Text;
-      string command = message.Split(' ')[0];
-
+   public async Task<string?> HandleResponseAsync(string chatId, string command, CancellationToken token, params string[] args) {
       if (command != "/updatecredentials")
          return null;
 
-      var arguments = message.Split(' ').Skip(1).ToArray();
-
-      if (arguments.Length != 2)
+      if (args.Length != 2)
          return "Invalid command format. Use: /login <ByBitKey> <ByBitSecret>";
 
-      string byBitKey = arguments[0];
-      string byBitSecret = arguments[1];
-      string telegramId = update.Message.From.Id.ToString();
+      string byBitKey = args[0];
+      string byBitSecret = args[1];
 
       UserUpdate userUpdate = new(http);
-      UserDTO? user = await userUpdate.Get(telegramId, token);
+      UserModel? user = await userUpdate.Get(chatId, token);
       if (user == null)
          return "User not found. Please ensure you are registered.";
 

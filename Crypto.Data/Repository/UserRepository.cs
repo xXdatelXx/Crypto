@@ -22,6 +22,12 @@ public sealed class UserRepository(CryptoDBContext dbContext) : IUserRepository 
          .FirstOrDefaultAsync(x => x.TelegramId == id, token);
    }
 
+   public async Task<IEnumerable<User>?> GetAllAsync(CancellationToken token) {
+      return await dbContext.Users
+         .Include(x => x.Currencies)
+         .ToListAsync(token);
+   }
+
    public async Task UpdateAsync(User model, CancellationToken token) {
       var old = await dbContext.Users.FindAsync([model.Id], token);
 

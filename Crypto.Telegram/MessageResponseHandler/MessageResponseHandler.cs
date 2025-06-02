@@ -3,12 +3,12 @@
 namespace Crypto.Telegram.MessageResponseHandler;
 
 public sealed class MessageResponseHandler(params IMessageResponse[] handlers) : IMessageResponse {
-   public async Task<string?> HandleResponseAsync(Update update, CancellationToken token) {
+   public async Task<string?> HandleResponseAsync(string chatId, string command, CancellationToken token, params string[] args) {
       string results = "";
 
       foreach (var h in handlers) {
          try {
-            var result = await h.HandleResponseAsync(update, token);
+            var result = await h.HandleResponseAsync(chatId, command, token, args);
             if (result != null) results += result + "\n";
          }
          catch (Exception e) {

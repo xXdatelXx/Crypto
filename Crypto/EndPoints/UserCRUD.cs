@@ -1,5 +1,6 @@
 ﻿using Crypto.Application.Logic.Commands.User.Create;
 using Crypto.Application.Logic.Commands.User.Remove;
+using Crypto.Application.Logic.Commands.User.SendTrackingCurrencies;
 using Crypto.Application.Logic.Commands.User.Update;
 using Crypto.Application.Model;
 using Crypto.Queries.Queries.User;
@@ -41,5 +42,10 @@ public sealed class UserCRUD(IMediator mediator) : ControllerBase {
    [HttpDelete, Route("RemoveUser")]
    public async Task<IActionResult> RemoveUser(Guid id, CancellationToken token = default) {
       return Ok(await mediator.Send(new RemoveUserCommand(id), token));
+   }
+   
+   [HttpPost, Route("SendTrackingCurrencies")]
+   public async Task<IActionResult> SendTrackingCurrencies(CancellationToken token = default) {
+      return Ok(await mediator.Send(new SendTrackingCurrenciesCommand(), token));
    }
 }

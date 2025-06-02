@@ -30,8 +30,8 @@ builder.Services.AddScoped<IUserRepository, UserRepository>();
 builder.Services.AddSingleton<ITelegramBotClient>(new TelegramBotClient(
     builder.Configuration["TelegramBotToken"]
 ));
-
-builder.Services.AddHostedService<Bot>();
+builder.Services.AddSingleton<IBot, Bot>();
+builder.Services.AddHostedService<BotService>();
 
 var app = builder.Build();
 
