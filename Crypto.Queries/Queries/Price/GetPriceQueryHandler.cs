@@ -16,8 +16,12 @@ public sealed class GetPriceQueryHandler(IHttpClientFactory httpClientFactory) :
       using var client = httpClientFactory.CreateClient();
       HttpResponseMessage response = await client.GetAsync(url, cancellationToken);
       string json = await response.Content.ReadAsStringAsync(cancellationToken);
-      JToken price = JObject.Parse(json)["result"]?["list"]?[0]?[request.time.HasValue ? 4 : "lastPrice"]?.ToString();
-
-      return price.Value<float>();
+      try {
+         JToken price = JObject.Parse(json)["result"]?["list"]?[0]?[request.time.HasValue ? 4 : "lastPrice"]?.ToString();
+         return price.Value<float>();
+      }
+      catch (Exception) {
+         return 0;
+      }
    }
 }

@@ -15,6 +15,9 @@ EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Crypto.Tests", "Crypto.Tests\Crypto.Tests.csproj", "{E6F74BA1-41D3-4F5A-B882-2F3922B34852}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Crypto.Function", "Crypto.Function\Crypto.Function.csproj", "{C068425A-D7BC-4E3E-AA4C-1FD65AFE0C0E}"
+	ProjectSection(ProjectDependencies) = postProject
+		{14851D29-943B-7528-262E-4770393BCA0C} = {14851D29-943B-7528-262E-4770393BCA0C}
+	EndProjectSection
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution

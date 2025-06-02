@@ -5,15 +5,11 @@ using Telegram.Bot.Types;
 namespace Crypto.Telegram.MessageResponseHandler.Realisations;
 
 public class WalletResponse(HttpClient http) : IMessageResponse {
-   public async Task<string?> HandleResponseAsync(Update update, CancellationToken token) {
-      string message = update.Message.Text;
-      string command = message.Split(' ')[0];
-
+   public async Task<string?> HandleResponseAsync(string chatId, string command, CancellationToken token, params string[] args) {
       if (command != "/wallet")
          return null;
 
-      var telegramId = update.Message.From?.Id;
-      var model = await http.GetFromJsonAsync<WalletModel>($"api/Wallet/GetWallet?telegramId={telegramId}", token);
+      var model = await http.GetFromJsonAsync<WalletModel>($"api/Wallet/GetWallet?telegramId={chatId}", token);
 
       return
          model is not null
