@@ -1,4 +1,5 @@
-﻿using Crypto.Data.Interface;
+﻿using System.Data;
+using Crypto.Data.Interface;
 using MediatR;
 using Crypto.Telegram;
 using Microsoft.Extensions.Configuration;
@@ -14,14 +15,15 @@ public class SendTrackingCurrenciesCommandHandler(
     public async Task<Unit> Handle(SendTrackingCurrenciesCommand request, CancellationToken cancellationToken)
     {
         var http = httpClientFactory.CreateClient();
-        http.BaseAddress = new Uri(configuration["ApiBaseAddress"]);
+        //http.BaseAddress = new Uri(configuration["ApiBaseAddress"]);
+        http.BaseAddress = new Uri("https://localhost:44396/");
             
         var users = await repository.GetAllAsync(cancellationToken);
         if(users == null)
-            throw new ArgumentException("Kozel");
+            throw new DataException("Users not found in database.");
 
         foreach (var user in users) 
-            bot.SendMessage(user.TelegramId, "/tracking");
+            await bot.SendMessageAsync(user.TelegramId, "/tracking", cancellationToken);
             
         return Unit.Value;
     }
