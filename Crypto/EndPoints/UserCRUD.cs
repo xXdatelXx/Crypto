@@ -44,7 +44,7 @@ public sealed class UserCRUD(IMediator mediator) : ControllerBase {
       return Ok(await mediator.Send(new RemoveUserCommand(id), token));
    }
    
-   [HttpPost, Route("SendTrackingCurrencies")]
+   [HttpGet, Route("SendTrackingCurrencies")]
    public async Task<IActionResult> SendTrackingCurrencies(CancellationToken token = default) {
       return Ok(await mediator.Send(new SendTrackingCurrenciesCommand(), token));
    }
