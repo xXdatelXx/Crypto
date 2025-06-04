@@ -19,8 +19,13 @@ KPI course work
 - Crypto.Telegram: Telegram bot.
 - Crypto.Tests: UnitTests
 
+# Prerequisites
+- .NET SDK 8.0 or higher
+- PostgreSQL database
+- Azure account for deploying Azure Functions
+
 # User Secrets template:
-{
+```{
   "ConnectionStrings": {
     "DefaultConnection": ""
   },
@@ -28,4 +33,11 @@ KPI course work
   "CoinMarketCapApiKey": "",
   "ApiBaseAddress": ""
 }
+```
+
+## Contributing
+Feel free to submit issues or pull requests to improve the project.
+
+## License
+This project is licensed under the MIT License.
 
