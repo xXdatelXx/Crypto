@@ -6,12 +6,10 @@ using Telegram.Bot;
 namespace Crypto.Telegram;
 
 public sealed class Bot(ITelegramBotClient client, IHttpClientFactory httpClientFactory, IConfiguration configuration) : IBot {
-   public void SendMessage(string chatId, string command, params string[] args) {
-        SendMessageAsync(chatId, command, new CancellationToken(), args);
-    }
    public async Task SendMessageAsync(string chatId, string command, CancellationToken token, params string[] args) {
       using var http = httpClientFactory.CreateClient();
-      http.BaseAddress = new Uri(configuration["ApiBaseAddress"]);
+      http.BaseAddress = new Uri("https://localhost:44396/");
+      //http.BaseAddress = new Uri(configuration["ApiBaseAddress"]);
 
       string? response = await new MessageResponseHandler.MessageResponseHandler(
             new StartResponse(),
@@ -26,6 +24,6 @@ public sealed class Bot(ITelegramBotClient client, IHttpClientFactory httpClient
             new TrackingCurrenciesResponse(http))
          .HandleResponseAsync(chatId, command, token, args);
 
-      await client.SendMessage(chatId, response, cancellationToken: token);
+      await client.SendMessage(chatId, response ?? "Command not found", cancellationToken: token);
    }
 }
