@@ -16,4 +16,9 @@
         <ProjectReference Include="..\Crypto.Data\Crypto.Data.csproj"/>
     </ItemGroup>
 
+    <ItemGroup>
+      <Folder Include="Models\" />
+      <Folder Include="Queries\User\" />
+    </ItemGroup>
+
 </Project>

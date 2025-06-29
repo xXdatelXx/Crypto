@@ -33,7 +33,7 @@ public class CreateCurrencyCommandHandlerTests {
          .Callback<Currency, CancellationToken>((currency, _) => currency.Id = guid)
          .Returns(Task.CompletedTask);
 
-      CurrencyDTO result = await _handler.Handle(request, CancellationToken.None);
+      CurrencyRequest result = await _handler.Handle(request, CancellationToken.None);
 
       Assert.Multiple(() => {
          Assert.That(result, Is.Not.Null);

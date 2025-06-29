@@ -18,8 +18,8 @@
     <ItemGroup>
       <ProjectReference Include="..\Crypto.Application\Crypto.Application.csproj" />
       <ProjectReference Include="..\Crypto.Data\Crypto.Data.csproj" />
-      <ProjectReference Include="..\Crypto.Queries\Crypto.Queries.csproj" />
-      <ProjectReference Include="..\Crypto\Crypto.csproj" />
+      <ProjectReference Include="..\Crypto.API\Crypto.API.csproj" />
+      <ProjectReference Include="..\Crypto.Telegram\Crypto.Telegram.csproj" />
     </ItemGroup>
 
 </Project>

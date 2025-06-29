@@ -24,7 +24,7 @@ public class UpdateCurrencyCommandHandlerTests {
    public async Task Handle_ShouldUpdateCurrency_WhenValid() {
       var id = Guid.NewGuid();
 
-      var currency = new CurrencyDTO {
+      var currency = new CurrencyRequest {
          Id = id,
          Name = "ETH",
          Users = new List<string> { "123456789", "987654321" }
@@ -41,7 +41,7 @@ public class UpdateCurrencyCommandHandlerTests {
       var user2 = new User { TelegramId = "987654321" };
 
       _currencyRepoMock
-         .Setup(r => r.GetAsync(id, It.IsAny<CancellationToken>()))
+         .Setup(r => r.GetByIdAsync(id, It.IsAny<CancellationToken>()))
          .ReturnsAsync(existingCurrency);
 
       _userRepoMock
@@ -56,7 +56,7 @@ public class UpdateCurrencyCommandHandlerTests {
          .Setup(r => r.UpdateAsync(existingCurrency, It.IsAny<CancellationToken>()))
          .Returns(Task.CompletedTask);
 
-      CurrencyDTO result = await _handler.Handle(command, CancellationToken.None);
+      CurrencyRequest result = await _handler.Handle(command, CancellationToken.None);
 
       Assert.Multiple(() => {
          Assert.That(result, Is.Not.Null);
@@ -68,7 +68,7 @@ public class UpdateCurrencyCommandHandlerTests {
    [Test]
    public void Handle_ShouldThrowValidationException_WhenInvalid() {
       var id = Guid.NewGuid();
-      var currency = new CurrencyDTO {
+      var currency = new CurrencyRequest {
          Id = id
       };
       var command = new UpdateCurrencyCommand(currency);

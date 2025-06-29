@@ -25,7 +25,7 @@ namespace Crypto.Data.Migrations
 
             NpgsqlModelBuilderExtensions.UseIdentityByDefaultColumns(modelBuilder);
 
-            modelBuilder.Entity("Crypto.Data.Models.Currency", b =>
+            modelBuilder.Entity("Crypto.API.Data.Models.Currency", b =>
                 {
                     b.Property<Guid>("Id")
                         .ValueGeneratedOnAdd()
@@ -43,7 +43,7 @@ namespace Crypto.Data.Migrations
                     b.ToTable("Currencies");
                 });
 
-            modelBuilder.Entity("Crypto.Data.Models.User", b =>
+            modelBuilder.Entity("Crypto.API.Data.Models.User", b =>
                 {
                     b.Property<Guid>("Id")
                         .ValueGeneratedOnAdd()
@@ -69,7 +69,7 @@ namespace Crypto.Data.Migrations
                     b.ToTable("Users");
                 });
 
-            modelBuilder.Entity("Crypto.Data.Models.User_Currency", b =>
+            modelBuilder.Entity("Crypto.API.Data.Models.User_Currency", b =>
                 {
                     b.Property<Guid>("Id")
                         .ValueGeneratedOnAdd()
@@ -105,15 +105,15 @@ namespace Crypto.Data.Migrations
                     b.ToTable("CurrencyUser");
                 });
 
-            modelBuilder.Entity("Crypto.Data.Models.User_Currency", b =>
+            modelBuilder.Entity("Crypto.API.Data.Models.User_Currency", b =>
                 {
-                    b.HasOne("Crypto.Data.Models.Currency", "Currency")
+                    b.HasOne("Crypto.API.Data.Models.Currency", "Currency")
                         .WithMany()
                         .HasForeignKey("CurrencyId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
-                    b.HasOne("Crypto.Data.Models.User", "User")
+                    b.HasOne("Crypto.API.Data.Models.User", "User")
                         .WithMany()
                         .HasForeignKey("UserId")
                         .OnDelete(DeleteBehavior.Cascade)
@@ -126,13 +126,13 @@ namespace Crypto.Data.Migrations
 
             modelBuilder.Entity("CurrencyUser", b =>
                 {
-                    b.HasOne("Crypto.Data.Models.Currency", null)
+                    b.HasOne("Crypto.API.Data.Models.Currency", null)
                         .WithMany()
                         .HasForeignKey("CurrenciesId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
-                    b.HasOne("Crypto.Data.Models.User", null)
+                    b.HasOne("Crypto.API.Data.Models.User", null)
                         .WithMany()
                         .HasForeignKey("UsersId")
                         .OnDelete(DeleteBehavior.Cascade)

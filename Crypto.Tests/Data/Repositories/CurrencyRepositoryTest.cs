@@ -43,7 +43,7 @@ public sealed class CurrencyRepositoryTest {
       _context.Currencies.Add(currency);
       await _context.SaveChangesAsync();
 
-      var result = await _repository.GetAsync(currency.Id, CancellationToken.None);
+      var result = await _repository.GetByIdAsync(currency.Id, CancellationToken.None);
 
       Assert.That("Ethereum", Is.EqualTo(result?.Name));
    }

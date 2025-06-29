@@ -22,7 +22,7 @@ public class RemoveUserCommandHandlerTests {
       var id = Guid.NewGuid();
       var user = new User { Id = id };
 
-      _repositoryMock.Setup(r => r.GetAsync(id, It.IsAny<CancellationToken>()))
+      _repositoryMock.Setup(r => r.GetByIdAsync(id, It.IsAny<CancellationToken>()))
          .ReturnsAsync(user);
 
       _repositoryMock.Setup(r => r.DeleteAsync(user, It.IsAny<CancellationToken>()))

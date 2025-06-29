@@ -1,0 +1,39 @@
+<Project Sdk="Microsoft.NET.Sdk.Web">
+
+    <PropertyGroup>
+        <TargetFramework>net8.0</TargetFramework>
+        <Nullable>enable</Nullable>
+        <ImplicitUsings>enable</ImplicitUsings>
+        <UserSecretsId>bfd1d977-6013-4dff-bda8-2dde6ac4b976</UserSecretsId>
+        <RootNamespace>Crypto</RootNamespace>
+    </PropertyGroup>
+
+    <ItemGroup>
+        <Compile Remove="Crypto.Telegram\**"/>
+        <Content Remove="Crypto.Telegram\**"/>
+        <EmbeddedResource Remove="Crypto.Telegram\**"/>
+        <None Remove="Crypto.Telegram\**"/>
+    </ItemGroup>
+
+    <ItemGroup>
+        <PackageReference Include="MediatR" Version="12.5.0"/>
+        <PackageReference Include="Microsoft.EntityFrameworkCore.Design" Version="9.0.4">
+            <PrivateAssets>all</PrivateAssets>
+            <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
+        </PackageReference>
+        <PackageReference Include="Microsoft.EntityFrameworkCore.Tools" Version="9.0.4">
+            <PrivateAssets>all</PrivateAssets>
+            <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
+        </PackageReference>
+        <PackageReference Include="Npgsql.EntityFrameworkCore.PostgreSQL" Version="9.0.4"/>
+        <PackageReference Include="Swashbuckle.AspNetCore" Version="6.4.0"/>
+    </ItemGroup>
+
+    <ItemGroup>
+        <ProjectReference Include="..\Crypto.Application\Crypto.Application.csproj"/>
+        <ProjectReference Include="..\Crypto.Data\Crypto.Data.csproj"/>
+        <ProjectReference Include="..\Crypto.Function\Crypto.Function.csproj" />
+        <ProjectReference Include="..\Crypto.Telegram\Crypto.Telegram.csproj"/>
+    </ItemGroup>
+
+</Project>

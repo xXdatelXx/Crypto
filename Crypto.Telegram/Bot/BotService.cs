@@ -6,15 +6,15 @@ using Telegram.Bot.Types;
 
 namespace Crypto.Telegram;
 
-public sealed class BotService(IBot bot, ITelegramBotClient client, ILogger<BotService> logger) : BackgroundService {
-   protected override async Task ExecuteAsync(CancellationToken cancellationToken) {
+internal sealed class BotService(IBot bot, ITelegramBotClient client, ILogger<BotService> logger) : BackgroundService {
+   protected override async Task ExecuteAsync(CancellationToken token) {
       client.StartReceiving(
          HandleUpdateAsync,
          HandleErrorAsync,
-         cancellationToken: cancellationToken
+         cancellationToken: token
       );
 
-      var me = await client.GetMe(cancellationToken);
+      var me = await client.GetMe(token);
       logger.LogInformation($"Bot started: {me.Username}");
    }
 
@@ -22,7 +22,7 @@ public sealed class BotService(IBot bot, ITelegramBotClient client, ILogger<BotS
       string message = update.Message.Text;
       string command = message.Split(' ')[0];
       string[] arguments = message.Split(' ').Skip(1).ToArray();
-      var telegramId = update.Message.From?.Id.ToString();
+      string telegramId = update.Message.From?.Id.ToString();
       
       await bot.SendMessageAsync(telegramId, command, token, arguments);
    }

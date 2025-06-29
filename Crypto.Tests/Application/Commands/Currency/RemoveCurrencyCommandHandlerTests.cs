@@ -23,11 +23,11 @@ public class RemoveCurrencyCommandHandlerTests {
       var currency = new Currency { Id = id, Name = "BTC" };
 
       _repositoryMock
-         .Setup(r => r.GetAsync(id, It.IsAny<CancellationToken>()))
+         .Setup(r => r.GetByIdAsync(id, It.IsAny<CancellationToken>()))
          .ReturnsAsync(currency);
 
       _repositoryMock
-         .Setup(r => r.DeleteAsync(currency, It.IsAny<CancellationToken>()))
+         .Setup(r => r.DeleteByIdAsync(currency, It.IsAny<CancellationToken>()))
          .Returns(Task.CompletedTask);
 
       var request = new RemoveCurrencyCommand(id);
@@ -35,6 +35,6 @@ public class RemoveCurrencyCommandHandlerTests {
       Unit result = await _handler.Handle(request, CancellationToken.None);
 
       Assert.That(result, Is.EqualTo(Unit.Value));
-      _repositoryMock.Verify(r => r.DeleteAsync(currency, It.IsAny<CancellationToken>()), Times.Once);
+      _repositoryMock.Verify(r => r.DeleteByIdAsync(currency, It.IsAny<CancellationToken>()), Times.Once);
    }
 }

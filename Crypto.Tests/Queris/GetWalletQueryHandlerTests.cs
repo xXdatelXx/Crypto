@@ -73,7 +73,7 @@ public class GetWalletQueryHandlerTests {
 
       var query = new GetWalletQuery(telegramId);
 
-      WalletModel result = await _handler.Handle(query, CancellationToken.None);
+      WalletResponse result = await _handler.Handle(query, CancellationToken.None);
 
       Assert.That(result, Is.Not.Null);
       Assert.That(result.Assets, Has.Count.EqualTo(2));
@@ -85,7 +85,7 @@ public class GetWalletQueryHandlerTests {
    public async Task Handle_ReturnsNull_WhenUserNotFound() {
       var query = new GetWalletQuery("999999999");
 
-      WalletModel result = await _handler.Handle(query, CancellationToken.None);
+      WalletResponse result = await _handler.Handle(query, CancellationToken.None);
 
       Assert.That(result, Is.Null);
    }

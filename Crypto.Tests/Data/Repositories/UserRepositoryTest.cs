@@ -47,7 +47,7 @@ public sealed class UserRepositoryTest {
       _context.Users.Add(user);
       await _context.SaveChangesAsync();
 
-      var result = await _repository.GetAsync(user.Id, CancellationToken.None);
+      var result = await _repository.GetByIdAsync(user.Id, CancellationToken.None);
 
       Assert.That(user.TelegramId, Is.EqualTo(result.TelegramId));
    }

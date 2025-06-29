@@ -36,13 +36,13 @@ public class GetUserQueryHandlerTests {
 
       var query = new GetUserByTGIdQuery(telegramId);
 
-      UserModel result = await _handler.Handle(query, CancellationToken.None);
+      UserResponse result = await _handler.Handle(query, CancellationToken.None);
 
       Assert.Multiple(() => {
          Assert.That(result.Id, Is.EqualTo(user.Id));
          Assert.That(result.TelegramId, Is.EqualTo(user.TelegramId));
          Assert.That(result.ByBitApiKey, Is.EqualTo(user.ByBitApiKey));
-         Assert.That(result.ByBitApiSicret, Is.EqualTo(user.ByBitApiSicret));
+         Assert.That(result.ByBitApiSecret, Is.EqualTo(user.ByBitApiSicret));
          Assert.That(result.Currencies, Is.EquivalentTo(user.Currencies.Select(c => c.Name).ToList()));
       });
    }

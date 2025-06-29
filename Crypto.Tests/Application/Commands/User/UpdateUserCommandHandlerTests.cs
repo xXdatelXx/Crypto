@@ -24,7 +24,7 @@ public class UpdateUserCommandHandlerTests {
    public async Task Handle_ShouldUpdateUser_WhenValid() {
       var id = Guid.NewGuid();
       var currencies = new List<string> { "BTC", "ETH" };
-      var command = new UpdateUserCommand(new UserDTO {
+      var command = new UpdateUserCommand(new UserRequest {
          Id = id,
          TelegramId = "123456789",
          ByBitApiKey = "key",
@@ -40,7 +40,7 @@ public class UpdateUserCommandHandlerTests {
       var btc = new Currency { Name = "BTC", Users = new List<User>() };
       var eth = new Currency { Name = "ETH", Users = new List<User>() };
 
-      _userRepoMock.Setup(r => r.GetAsync(id, It.IsAny<CancellationToken>()))
+      _userRepoMock.Setup(r => r.GetByIdAsync(id, It.IsAny<CancellationToken>()))
          .ReturnsAsync(user);
 
       _currencyRepoMock.Setup(r => r.GetByNameAsync("BTC", It.IsAny<CancellationToken>()))
@@ -67,7 +67,7 @@ public class UpdateUserCommandHandlerTests {
    [Test]
    public void Handle_ShouldThrowValidationException_WhenInvalid() {
       var id = Guid.NewGuid();
-      var command = new UpdateUserCommand(new UserDTO {
+      var command = new UpdateUserCommand(new UserRequest {
          Id = id
       });
 
