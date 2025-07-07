@@ -1,4 +1,5 @@
-﻿using Crypto.Application.Model;
+﻿using Crypto.Application.Requests.Currency;
+using Crypto.Application.Requests.Currency._Extensions;
 using Crypto.Data.Interface;
 using FluentValidation;
 using MediatR;
@@ -6,14 +7,10 @@ using Microsoft.EntityFrameworkCore;
 
 namespace Crypto.Application.Logic.Commands.Currency.Create;
 
-public sealed class CreateCurrencyCommandHandler(ICurrencyRepository repository) : IRequestHandler<CreateCurrencyCommand, CurrencyRequest> {
-   public async Task<CurrencyRequest> Handle(CreateCurrencyCommand request, CancellationToken cancellationToken) {
-      var validator = new CreateCurrencyCommandValidator();
-      var validationResult = await validator.ValidateAsync(request, cancellationToken);
-      if (!validationResult.IsValid)
-         throw new ValidationException(validationResult.Errors);
-
+public sealed class CreateCurrencyCommandHandler(ICurrencyRepository repository) : IRequestHandler<CreateCurrencyCommand, Guid> {
+   public async Task<Guid> Handle(CreateCurrencyCommand request, CancellationToken cancellationToken) {
       Data.Models.Currency currency = new() {
+         Id = Guid.NewGuid(),
          Name = request.Name
       };
 
@@ -22,9 +19,6 @@ public sealed class CreateCurrencyCommandHandler(ICurrencyRepository repository)
 
       await repository.CreateAsync(currency, cancellationToken);
 
-      return new CurrencyRequest {
-         Id = currency.Id,
-         Name = currency.Name
-      };
+      return currency.Id;
    }
 }

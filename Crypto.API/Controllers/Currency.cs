@@ -1,7 +1,6 @@
 ﻿using Crypto.Application.Logic.Commands.Currency.Create;
 using Crypto.Application.Logic.Commands.Currency.Remove;
 using Crypto.Application.Logic.Commands.Currency.Update;
-using Crypto.Application.Model;
 using MediatR;
 using Microsoft.AspNetCore.Mvc;
 
@@ -16,12 +15,8 @@ public sealed class Currency(IMediator mediator) : ControllerBase {
 
    [HttpPost, Route("UpdateCurrency")]
    public async Task<IActionResult> UpdateCurrency(Guid id, string name, CancellationToken token = default) {
-      CurrencyRequest currency = new() {
-         Id = id,
-         Name = name
-      };
-
-      return Ok(await mediator.Send(new UpdateCurrencyCommand(currency), token));
+      var command = new UpdateCurrencyCommand(id, name, new List<Guid>());
+      return Ok(await mediator.Send(command, token));
    }
 
    [HttpDelete, Route("RemoveCurrency")]

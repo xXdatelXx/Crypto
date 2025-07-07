@@ -1,22 +1,23 @@
-﻿using Crypto.Application.Model;
+﻿using Crypto.Application.Requests.User.Extensions;
 using Crypto.Data.Interface;
+using Crypto.Queries.Model;
 using FluentValidation;
 using MediatR;
 
 namespace Crypto.Application.Logic.Commands.User.Update;
 
-public sealed class UpdateUserCommandHandler(IUserRepository userRepository, ICurrencyRepository currencyRepository) : IRequestHandler<UpdateUserCommand, UserRequest> {
-   public async Task<UserRequest> Handle(UpdateUserCommand request, CancellationToken cancellationToken) {
-      var old = await userRepository.GetByIdAsync(request.Id, cancellationToken);
+public sealed class UpdateUserCommandHandler(IUserRepository userRepository, ICurrencyRepository currencyRepository) : IRequestHandler<UpdateUserCommand, UserResponse> {
+   public async Task<UserResponse> Handle(UpdateUserCommand request, CancellationToken cancellationToken) {
+      var old = await userRepository.GetByIdAsync(request.id, cancellationToken);
 
       old.TelegramId = request.telegramId;
       old.ByBitApiKey = request.byBitApiKey;
       old.ByBitApiSicret = request.byBitApiSecret;
 
-      foreach (var name in request.user.Currencies.ToList()) {
+      foreach (var name in request.currencies) {
          var currency = await currencyRepository.GetByNameAsync(name, cancellationToken);
          if (currency == null) {
-            await currencyRepository.CreateAsync(new Data.Models.Currency { Name = name, Users = new List<Data.Models.User> { old } }, cancellationToken);
+            await currencyRepository.CreateAsync(new Data.Models.Currency { Id = Guid.NewGuid() ,Name = name, Users = new List<Data.Models.User> { old } }, cancellationToken);
          }
          else {
             if (currency.Users == null || currency.Users.Count == 0)
@@ -33,6 +34,6 @@ public sealed class UpdateUserCommandHandler(IUserRepository userRepository, ICu
       
       await userRepository.UpdateAsync(old, cancellationToken);
 
-      return request.user;
+      return old.MapToResponse();
    }
 }

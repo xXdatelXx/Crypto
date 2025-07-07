@@ -1,6 +1,5 @@
 using Crypto.Application.Configuration;
 using Crypto.Data.Configuration;
-using Crypto.Telegram.Configuration;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -13,11 +12,12 @@ builder.Configuration.AddUserSecrets<Program>();
 // Extensions
 builder.Services
    .AddMediatR()
+   .AddApplication()
    .AddDatabase(builder.Configuration.GetConnectionString("DefaultConnection")!)
-   .AddData()
-   .AddTelegram(
-      builder.Configuration["TelegramBotToken"]!, 
-      builder.Configuration["ApiBaseAddress"]!);
+   .AddData();
+   //.AddTelegram(
+   //   builder.Configuration["TelegramBotToken"]!, 
+   //   builder.Configuration["ApiBaseAddress"]!);
 
 var app = builder.Build();
 

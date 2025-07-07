@@ -1,33 +1,32 @@
-﻿using Crypto.Application.Model;
+﻿using Crypto.Application.Requests.Currency;
+using Crypto.Application.Requests.Currency._Extensions;
 using Crypto.Data.Interface;
-using FluentValidation;
 using MediatR;
 
 namespace Crypto.Application.Logic.Commands.Currency.Update;
 
-public sealed class UpdateCurrencyCommandHandler(ICurrencyRepository currencyRepository, IUserRepository userRepository) : IRequestHandler<UpdateCurrencyCommand, CurrencyRequest> {
-   public async Task<CurrencyRequest> Handle(UpdateCurrencyCommand request, CancellationToken cancellationToken) {
-      var validator = new UpdateCurrencyCommandValidator();
-      var validationResult = await validator.ValidateAsync(request, cancellationToken);
-      if (!validationResult.IsValid)
-         throw new ValidationException(validationResult.Errors);
+public sealed class UpdateCurrencyCommandHandler(ICurrencyRepository currencyRepository, IUserRepository userRepository) : IRequestHandler<UpdateCurrencyCommand, CurrencyResponse> {
+   public async Task<CurrencyResponse> Handle(UpdateCurrencyCommand request, CancellationToken cancellationToken) {
+      Data.Models.Currency old = await currencyRepository.GetByIdAsync(request.id, cancellationToken);
+      
+      // If user does not exist, throw an exception
+      ICollection<Data.Models.User> newUsers = await Task.WhenAll(request.users.Select(async i => {
+         var user = await userRepository.GetByIdAsync(i, cancellationToken);
 
-      Data.Models.Currency old = await currencyRepository.GetByIdAsync(request.currency.Id, cancellationToken);
+         if (user == null)
+            throw new KeyNotFoundException($"User with id {i} not found");
 
-      old.Name = request.currency.Name;
+         return user;
+      }));
+      
+      var updated = new Data.Models.Currency {
+         Id = old.Id,
+         Name = old.Name,
+         Users = newUsers
+      };
+      
+      await currencyRepository.UpdateAsync(updated, cancellationToken);
 
-      List<Data.Models.User> users = [];
-      request.currency.Users?.ToList().ForEach(async c => {
-         var u = await userRepository.GetByTGIdAsync(c, cancellationToken);
-         if (u == null) 
-            await currencyRepository.CreateAsync(new Data.Models.Currency { Name = c }, cancellationToken);
-         users.Add(u);
-      });
-
-      old.Users.ToList().AddRange(users);
-
-      await currencyRepository.UpdateAsync(old, cancellationToken);
-
-      return request.currency;
+      return updated.MapToResponse();
    }
 }

@@ -36,4 +36,8 @@
         <ProjectReference Include="..\Crypto.Telegram\Crypto.Telegram.csproj"/>
     </ItemGroup>
 
+    <ItemGroup>
+      <Folder Include="Middleware\" />
+    </ItemGroup>
+
 </Project>

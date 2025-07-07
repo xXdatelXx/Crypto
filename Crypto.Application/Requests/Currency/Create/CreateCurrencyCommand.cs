@@ -1,6 +1,5 @@
-﻿using Crypto.Application.Model;
-using MediatR;
+﻿using MediatR;
 
 namespace Crypto.Application.Logic.Commands.Currency.Create;
 
-public record CreateCurrencyCommand(string Name) : IRequest<CurrencyRequest>;
+public record CreateCurrencyCommand(string Name) : IRequest<Guid>;

@@ -2,7 +2,7 @@
 
 namespace Crypto.Telegram.MessageResponseHandler;
 
-internal sealed class MessageResponseHandlerFactory(string apiBaseAddress) : IMessageResponseHandlerFactory {
+public sealed class MessageResponseHandlerFactory(string apiBaseAddress) : IMessageResponseHandlerFactory {
    public IMessageResponse Create(HttpClient http) {
       http.BaseAddress = new Uri(apiBaseAddress);
 
