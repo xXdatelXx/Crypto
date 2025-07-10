@@ -7,11 +7,9 @@ public static class ApiEndpoints {
    {
       private const string Base = $"{ApiBase}/currencies";
 
-      public const string Create = Base;
-      public const string Get = $"{Base}/{{id:guid}}";
-      public const string GetAll = Base;
-      public const string Update = $"{Base}/{{id:guid}}";
-      public const string Delete = $"{Base}/{{id:guid}}";
+      public const string Create = $"{Base}/{{name}}";
+      public const string Update = $"{Base}";
+      public const string Delete = $"{Base}/{{id}}";
    }
    
    public static class Users
@@ -19,17 +17,15 @@ public static class ApiEndpoints {
       private const string Base = $"{ApiBase}/users";
 
       public const string Create = Base;
-      public const string Get = $"{Base}/{{id:guid}}";
-      public const string GetByTGId = $"{Base}/tg/{{id}}";
-      public const string GetAll = Base;
-      public const string Update = $"{Base}/{{id:guid}}";
-      public const string Delete = $"{Base}/{{id:guid}}";
+      public const string Get = $"{Base}/{{id}}";
+      public const string GetByTelegram = $"{Base}/{{telegramId}}";
+      public const string Update = $"{Base}";
+      public const string Delete = $"{Base}/{{id}}";
    }
    
    public static class GreedFear
    {
       private const string Base = $"{ApiBase}/greed-fear";
-      
       public const string Get = Base;
    }
    
@@ -41,8 +37,7 @@ public static class ApiEndpoints {
    }
    
    public static class Wallet {
-      private const string Base = $"{ApiBase}/wallet";
-      
+      private const string Base = $"{ApiBase}/wallet{{telegramId}}";
       public const string Get = Base;
    }
 }

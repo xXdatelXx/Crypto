@@ -8,7 +8,6 @@
 
     <ItemGroup>
         <ProjectReference Include="..\Crypto.Data\Crypto.Data.csproj" />
-        <ProjectReference Include="..\Crypto.Telegram\Crypto.Telegram.csproj" />
     </ItemGroup>
 
     <ItemGroup>

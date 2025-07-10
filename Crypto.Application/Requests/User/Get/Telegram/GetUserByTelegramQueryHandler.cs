@@ -5,8 +5,8 @@ using MediatR;
 
 namespace Crypto.Queries.Queries.User;
 
-public sealed class GetUserQueryHandler(IUserRepository repository) : IRequestHandler<GetUserByTGIdQuery, UserResponse> {
-   public async Task<UserResponse> Handle(GetUserByTGIdQuery request, CancellationToken cancellationToken) {
+public sealed class GetUserByTelegramQueryHandler(IUserRepository repository) : IRequestHandler<GetUserByTelegramIdQuery, UserResponse> {
+   public async Task<UserResponse> Handle(GetUserByTelegramIdQuery request, CancellationToken cancellationToken) {
       Data.Models.User user = await repository.GetByTGIdAsync(request.telegramId, cancellationToken);
       return user.MapToResponse();
    }

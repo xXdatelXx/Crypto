@@ -3,4 +3,4 @@ using MediatR;
 
 namespace Crypto.Queries.Queries.User;
 
-public record GetUserByTGIdQuery(string telegramId) : IRequest<UserResponse>;
+public record GetUserByTelegramIdQuery(string telegramId) : IRequest<UserResponse>;
