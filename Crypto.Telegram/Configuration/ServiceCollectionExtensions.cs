@@ -12,7 +12,7 @@ public static class ServiceCollectionExtensions {
       ));
       services.AddSingleton<IBot, Bot>();
       services.AddHostedService<BotService>();
-      services.AddSingleton(new MessageResponseHandlerFactory(apiBaseAddress));
+      services.AddSingleton<IMessageResponseHandlerFactory>(new MessageResponseHandlerFactory(apiBaseAddress));
       
       return services;
    }

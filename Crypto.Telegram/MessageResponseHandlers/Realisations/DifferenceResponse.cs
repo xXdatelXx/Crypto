@@ -15,7 +15,7 @@ public sealed class DifferenceResponse(HttpClient http) : IMessageResponse {
       string currency = args[0].ToUpper();
       string? time = args.Length > 1 ? args[1] : null;
 
-      var model = await http.GetFromJsonAsync<Queries.Model.DifferenceResponse>($"api/PriceEndPoint/GetDifference?currency={currency}&time={time}", token);
+      var model = await http.GetFromJsonAsync<DifferencePriceResponse>($"api/PriceEndPoint/GetDifference?currency={currency}&time={time}", token);
 
       return $"Symbol: {model.Symbol}\n" +
              $"Time: {model.Time}\n" +

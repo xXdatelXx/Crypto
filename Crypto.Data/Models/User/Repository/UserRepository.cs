@@ -49,9 +49,12 @@ public sealed class UserRepository(CryptoDBContext dbContext) : IUserRepository 
    }
 
    public async Task<bool> DeleteAsync(User model, CancellationToken token) {
-      model.Removed = true;
-      await UpdateAsync(model, token);
-
+      if(await GetByIdAsync(model.Id, token) == null)
+         return false;
+      
+      dbContext.Remove(model);
       return true;
+      //model.Removed = true;
+      //await UpdateAsync(model, token);
    }
 }

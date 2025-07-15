@@ -32,10 +32,7 @@
     <ItemGroup>
         <ProjectReference Include="..\Crypto.Application\Crypto.Application.csproj"/>
         <ProjectReference Include="..\Crypto.Data\Crypto.Data.csproj"/>
-    </ItemGroup>
-
-    <ItemGroup>
-      <Folder Include="Middleware\" />
+        <ProjectReference Include="..\Crypto.Telegram\Crypto.Telegram.csproj" />
     </ItemGroup>
 
 </Project>

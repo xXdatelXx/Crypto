@@ -9,7 +9,7 @@ public class WalletResponse(HttpClient http) : IMessageResponse {
       if (command != "/wallet")
          return null;
 
-      var model = await http.GetFromJsonAsync<Queries.Model.WalletResponse>($"api/Wallet/GetWallet?telegramId={chatId}", token);
+      var model = await http.GetFromJsonAsync<Crypto.Queries.Model.WalletResponse>($"api/Wallet/GetWallet?telegramId={chatId}", token);
 
       return
          model is not null
