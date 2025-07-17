@@ -11,7 +11,7 @@ using Npgsql.EntityFrameworkCore.PostgreSQL.Metadata;
 
 namespace Crypto.Data.Migrations
 {
-    [DbContext(typeof(CryptoDBContext))]
+    [DbContext(typeof(CryptoDbContext))]
     [Migration("20250514122532_RemoveTable")]
     partial class RemoveTable
     {

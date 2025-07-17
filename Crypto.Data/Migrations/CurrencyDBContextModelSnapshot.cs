@@ -10,7 +10,7 @@ using Npgsql.EntityFrameworkCore.PostgreSQL.Metadata;
 
 namespace Crypto.Data.Migrations
 {
-    [DbContext(typeof(CryptoDBContext))]
+    [DbContext(typeof(CryptoDbContext))]
     partial class CurrencyDBContextModelSnapshot : ModelSnapshot
     {
         protected override void BuildModel(ModelBuilder modelBuilder)

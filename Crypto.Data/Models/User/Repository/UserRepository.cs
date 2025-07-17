@@ -4,7 +4,7 @@ using Microsoft.EntityFrameworkCore;
 
 namespace Crypto.Data.Repository;
 
-public sealed class UserRepository(CryptoDBContext dbContext) : IUserRepository {
+public sealed class UserRepository(CryptoDbContext dbContext) : IUserRepository {
    public async Task<bool> CreateAsync(User model, CancellationToken token) {
       await dbContext.Users.AddAsync(model, token);
       await dbContext.SaveChangesAsync(token);
@@ -27,7 +27,7 @@ public sealed class UserRepository(CryptoDBContext dbContext) : IUserRepository 
    public Task<IEnumerable<User>> GetAllAsync(CancellationToken token) {
       return Task.FromResult<IEnumerable<User>>(dbContext.Users
          .Include(x => x.Currencies)
-         .Where(i => !i.Removed));
+         .Where(i => !i.SoftDeleted));
    }
 
    public async Task<bool> UpdateAsync(User model, CancellationToken token) {

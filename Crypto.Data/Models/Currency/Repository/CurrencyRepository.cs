@@ -4,7 +4,7 @@ using Microsoft.EntityFrameworkCore;
 
 namespace Crypto.Data.Repository;
 
-public sealed class CurrencyRepository(CryptoDBContext dbContext) : ICurrencyRepository {
+public sealed class CurrencyRepository(CryptoDbContext dbContext) : ICurrencyRepository {
    public async Task<bool> CreateAsync(Currency model, CancellationToken token) {
       await dbContext.Currencies.AddAsync(model, token);
       await dbContext.SaveChangesAsync(token);
@@ -14,13 +14,13 @@ public sealed class CurrencyRepository(CryptoDBContext dbContext) : ICurrencyRep
 
    public async Task<Currency?> GetByIdAsync(Guid id, CancellationToken token) {
       var model = await dbContext.Currencies.FindAsync([id], token);
-      return model == null || model.Removed ? null : model;
+      return model == null || model.SoftDeleted ? null : model;
    }
 
    public Task<IEnumerable<Currency>> GetAllAsync() {
       return Task.FromResult<IEnumerable<Currency>>(dbContext.Currencies
          .Include(i => i.Users)
-         .Where(i => !i.Removed));
+         .Where(i => !i.SoftDeleted));
    }
    
    public async Task<bool> UpdateAsync(Currency model, CancellationToken token) {
@@ -47,7 +47,7 @@ public sealed class CurrencyRepository(CryptoDBContext dbContext) : ICurrencyRep
       if (model == null)
          return false;
       
-      model.Removed = true;
+      model.SoftDeleted = true;
       await UpdateAsync(model, token);
       return true;
    }

@@ -10,7 +10,7 @@ using Newtonsoft.Json.Linq;
 namespace Crypto.Queries.Queries.Wallet;
 
 // Writed by ChatGPT 
-public sealed class GetWalletQueryHandler(CryptoDBContext dBContext, IHttpClientFactory httpClientFactory) : IRequestHandler<GetWalletQuery, WalletResponse> {
+public sealed class GetWalletQueryHandler(CryptoDbContext dBContext, IHttpClientFactory httpClientFactory) : IRequestHandler<GetWalletQuery, WalletResponse> {
    public async Task<WalletResponse> Handle(GetWalletQuery request, CancellationToken cancellationToken) {
       var user = await dBContext.Users
          .Where(x => x.TelegramId == request.telegramId)

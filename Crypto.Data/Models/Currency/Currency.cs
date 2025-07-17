@@ -2,9 +2,9 @@
 
 namespace Crypto.Data.Models;
 
-public class Currency : IRemovable {
+public sealed class Currency : ISoftDeleted {
    public required Guid Id { get; init; }
    public required string Name { get; init; }
-   public virtual ICollection<User>? Users { get; set; }
-   public bool Removed { get; set; }
+   public ICollection<User>? Users { get; set; }
+   public bool SoftDeleted { get; set; }
 }

@@ -3,11 +3,20 @@ using Microsoft.EntityFrameworkCore;
 
 namespace Crypto.Data;
 
-public class CryptoDBContext(DbContextOptions<CryptoDBContext> options) : DbContext(options) {
+/// <summary>
+/// Return only not soft deleted entities.
+/// </summary>
+public class CryptoDbContext(DbContextOptions<CryptoDbContext> options) : DbContext(options) {
    public DbSet<User> Users { get; set; }
    public DbSet<Currency> Currencies { get; set; }
 
-   public override Task<int> SaveChangesAsync(bool acceptAllChangesOnSuccess, CancellationToken cancellationToken = new CancellationToken()) {
-      return base.SaveChangesAsync(acceptAllChangesOnSuccess, cancellationToken);
+   protected override void OnModelCreating(ModelBuilder modelBuilder) {
+      base.OnModelCreating(modelBuilder);
+      modelBuilder
+         .Entity<User>()
+         .HasQueryFilter(u => !u.SoftDeleted);
+      modelBuilder
+         .Entity<Currency>()
+         .HasQueryFilter(c => !c.SoftDeleted);
    }
 }
